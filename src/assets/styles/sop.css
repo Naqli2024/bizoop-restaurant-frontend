@@ -1,0 +1,346 @@
+/* ================================
+   STANDARD RECIPE SOP
+================================ */
+
+.sop-page,
+.sop-page * {
+  box-sizing: border-box;
+}
+
+.sop-page {
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  color: var(--text);
+  background: var(--bg);
+  font-family: Inter, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.sop-panel {
+  width: 100%;
+  min-width: 0;
+}
+
+.sop-panel-header {
+  width: auto;
+  margin: 0 -16px;          /* cancel .sop-page padding */
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sop-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+/* "linked to KOT" badge (blue) */
+.sop-linked-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* "v3 · Chef Murugan" badge (green) */
+.sop-version-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sop-content {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.sop-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  align-items: start;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.sop-card {
+  min-width: 0;
+  padding: 22px 23px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.sop-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* TABLE */
+
+.sop-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.sop-table {
+  width: 100%;
+  min-width: 400px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.sop-table th,
+.sop-table td {
+  padding: 14px 17px;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.sop-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.sop-table th {
+  background: var(--elevated);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sop-table td {
+  color: var(--text);
+  font-size: 14px;
+}
+
+/* numeric columns: use on BOTH <th> and <td> so they line up */
+.sop-right {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.sop-number {
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.sop-total-row td {
+  font-weight: 700;
+}
+
+.sop-empty {
+  padding: 20px 12px;
+  margin-bottom: 18px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* FORM */
+
+.sop-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  margin-bottom: 14px;
+}
+
+.sop-form-group label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.sop-input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.sop-input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: none;
+}
+
+.sop-textarea {
+  min-height: 180px;
+  resize: vertical;
+  line-height: 1.7;
+}
+
+.sop-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 12px;
+}
+
+.sop-save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 10px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.sop-save-button:hover {
+  opacity: 0.85;
+}
+
+.sop-success {
+  margin: 12px 0 0;
+  color: #4ade80;
+  font-size: 12px;
+}
+
+/* RECIPE LIST */
+
+.sop-recipes-card {
+  position: sticky;
+  top: 16px;
+}
+
+.sop-recipes-card .sop-card-header {
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sop-recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  
+}
+
+/* pill buttons */
+.sop-recipe-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  width: 100%;
+  min-height: 30px;
+  padding: 5px 15px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.sop-recipe-button:hover {
+  border-color: var(--accent);
+  background: var(--surface);
+}
+
+/* solid blue active pill */
+.sop-recipe-button.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+/* version text ("v1", "v3") */
+.sop-muted {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.sop-recipe-button.active .sop-muted {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .sop-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sop-recipes-card {
+    position: static;
+  }
+
+  .sop-recipe-list {
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 520px) {
+  .sop-page {
+    padding: 8px;
+  }
+
+  .sop-card {
+    padding: 14px;
+  }
+
+  .sop-table th,
+  .sop-table td {
+    padding: 10px 12px;
+  }
+
+  .sop-fields-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sop-save-button {
+    width: 100%;
+  }
+}

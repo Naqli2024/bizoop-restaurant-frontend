@@ -1,0 +1,328 @@
+
+/* Header */
+.topbar {
+  height: 48px;
+  min-height: 48px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 10px;
+
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
+  box-sizing: border-box;
+}
+
+/* Brand section */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.client-logo-img {
+  height: 32px;
+  max-width: 120px;
+  object-fit: contain;
+  border-radius: 6px;
+  display: none;
+}
+
+.brand-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text);
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.top-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* Industry pill */
+.ind-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-glow);
+
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Date and time */
+.top-date {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+  white-space: nowrap;
+}
+
+/* Role navigation */
+.vsw {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.vsw::-webkit-scrollbar {
+  display: none;
+}
+
+.vsw-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+
+  background: transparent;
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.vsw-btn:hover {
+  color: var(--text);
+  background: var(--panel);
+  border-color: var(--border);
+}
+
+.vsw-btn.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-color: var(--accent-glow);
+}
+
+.vsw-btn small {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* Right section */
+.topbar-right {
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.action-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 7px 14px;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  background:transparent;
+  font-size: 13px;
+  transition: all 0.12s;
+  font-family:var(--font);
+  gap: 10px;
+}
+.tag{
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 12px;
+}
+.t-err {
+    background: rgba(239, 68, 68, .12);
+    color: #EF4444;
+}
+
+/* Theme button */
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+
+  background: var(--panel);
+  color: var(--muted);
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+  transition: all 0.15s ease;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  border-color: var(--border2);
+}
+
+/* User profile */
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+
+  border-radius: var(--r-sm);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+
+  cursor: pointer;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.user-chip:hover {
+  border-color: var(--border2);
+}
+
+.user-av {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+
+  border-radius: 50%;
+  background: var(--accent-dim);
+  color: var(--accent);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.user-info .uname {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.user-info .urole {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Topbar */
+.topbar {
+  position: relative;
+}
+
+/* Role navigation container */
+.vsw {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 3px;
+  margin: 0 auto;
+}
+
+/* Location indicator */
+.loc-pill {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+/* Live status dot */
+.live-dot {
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+  animation: pulse 2s infinite;
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .topbar {
+    height: auto;
+    padding: 10px;
+  }
+  
+  /* Make role nav take full width row if needed or scroll cleanly */
+  .vsw {
+    order: 3;
+    width: 100%;
+    margin-top: 4px;
+    justify-content: flex-start;
+  }
+}
+
+/* Mobile Breakpoint (Below 640px) */
+@media (max-width: 639px) {
+  /* Hide less critical info on very small screens to save space */
+  .top-date, 
+  .top-sep, 
+  .ind-pill {
+    display: none; 
+  }
+
+  /* Simplify user chip layout (hide role text, keep avatar/name) */
+  .user-info .urole {
+    display: none;
+  }
+}

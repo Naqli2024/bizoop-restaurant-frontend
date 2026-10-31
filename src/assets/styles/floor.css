@@ -1,0 +1,591 @@
+/* =========================================================
+   floor.css – Floor, FloorHeader, FloorLegend, FloorTable,
+   FloorOrder, FloorModal
+   Uses the global theme variables (--bg, --surface, --panel,
+   --elevated, --border, --accent ...).
+   ========================================================= */
+
+/* ---------- Panel shell ---------- */
+.floor-pnl {
+  display: none;
+  flex-direction: column;
+  /* Set --floor-offset to the height of any bar above the panel. */
+  height: calc(100vh - var(--floor-offset, 0px));
+  height: calc(100dvh - var(--floor-offset, 0px));
+  min-height: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+.floor-pnl.floor-act { display: flex; }
+
+/* Fixed-size bars never shrink; only .scroll flexes */
+.floor-pnl > .floor-ph,
+.floor-pnl > .floor-stn-tabs,
+.floor-pnl > .floor-legend { flex: 0 0 auto; }
+
+/* ---------- Header ---------- */
+.floor-ph {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.floor-ph-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.floor-ph-badge {
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* ---------- Layout helpers ---------- */
+.floor-row { display: flex; align-items: center; gap: 8px; }
+.floor-row.floor-wrap { flex-wrap: wrap; }
+.floor-row.floor-right { justify-content: flex-end; }
+
+/* ---------- Chips ---------- */
+.floor-chip {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.floor-chip:hover { color: var(--text); border-color: var(--muted); }
+.floor-chip.sel {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.05s;
+}
+
+.btn:hover {
+  filter: brightness(1.12);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color:var(--muted);
+}
+
+/* Primary button color */
+button.btn.btn-p {
+  background-color: var(--accent, #10b981);
+  border-color: var(--accent, #10b981);
+  color: #ffffff;
+}
+
+button.btn.btn-p:hover {
+  background-color: var(--accent, #10b981);
+  border-color: var(--accent, #10b981);
+  filter: brightness(1.12);
+}
+.floor-chip:focus-visible,
+.btn:focus-visible,
+.floor-modal-close:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ---------- Legend ---------- */
+.floor-stn-tabs {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+.floor-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px 18px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+/* standalone legend (direct child of .pnl) keeps its own bar */
+.floor-pnl > .floor-legend {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.floor-legend-item,
+.floor-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+}
+.floor-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  display: inline-block;
+  flex: none;
+}
+
+/* ---------- Scroll area & sections ---------- */
+.floor-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.floor-pad { padding: 16px; }
+
+.floor-section + .floor-section { margin-top: 20px; }
+
+.floor-sec-h {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 20px;
+  padding-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.floor-empty {
+  margin-top: 20px;
+  padding: 28px 16px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--r);
+}
+
+/* ---------- Table grid ---------- */
+.floor-tgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  align-items: stretch;
+  gap: 12px;
+}
+
+/* Works whether the card is a <div role="button"> or a <button> */
+button.floor-tbl {
+  appearance: none;
+  width: 100%;
+  margin: 0;
+  font: inherit;
+}
+
+.floor-tbl {
+  --table-color: var(--muted);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  min-width: 0;
+  min-height: 112px;
+  padding: 12px 12px 12px 16px;
+  color: inherit;
+  text-align: left;
+  background: color-mix(in srgb, var(--table-color) 9%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--table-color) 35%, var(--border));
+  border-radius: var(--r);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.12s, border-color 0.12s, opacity 0.2s;
+}
+.floor-tbl::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 4px;
+  border-radius: 0 4px 4px 0;
+  background: var(--table-color);
+}
+.floor-tbl:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--table-color) 60%, var(--border2));
+}
+.floor-tbl:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* Status colours (FloorTable/FloorOrder only set data-s) */
+.floor-tbl[data-s="free"]      { --table-color: var(--green); background: var(--panel); }
+.floor-tbl[data-s="res"]       { --table-color: var(--muted); border-style: dashed; }
+.floor-tbl[data-s="ordering"]  { --table-color: var(--blue); }
+.floor-tbl[data-s="kitchen"],
+.floor-tbl[data-s="preparing"] { --table-color: var(--a2); }
+.floor-tbl[data-s="ready"]     { --table-color: var(--green); animation: ready-pulse 2s ease-in-out infinite; }
+.floor-tbl[data-s="served"]    { --table-color: var(--purple); }
+.floor-tbl[data-s="bill"],
+.floor-tbl[data-s="billing"]   { --table-color: var(--red); }
+
+@keyframes ready-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 transparent; }
+  50%      { box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 28%, transparent); }
+}
+
+.floor-tn {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.floor-tn small { font-size: 0.7rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.floor-tt { font-size: 0.78rem; font-weight: 700; color: var(--table-color); }
+.floor-tm {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.floor-ta {
+  margin-top: auto;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* ========================================
+   FLOOR MODAL BACKDROP
+======================================== */
+.floor-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: grid;
+  place-items: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
+
+  animation: modal-fade 0.15s ease-out;
+}
+
+/* ========================================
+   MODAL CONTAINER
+======================================== */
+.floor-modal {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 0;
+
+  width: 100%;
+  max-width: 500px;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0 20px 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* ========================================
+   MODAL HEADER
+======================================== */
+.floor-modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30px;
+  align-items: center;
+  gap: 12px;
+
+  margin: 0 -20px 18px;
+  padding: 16px 20px 12px;
+
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.floor-modal-header h3 {
+  margin: 0;
+  min-width: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.floor-modal-close {
+  display: grid;
+  place-items: center;
+
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex: none;
+
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.floor-modal-close:hover {
+  background: var(--elevated);
+  color: var(--text);
+}
+
+/* ========================================
+   FORM FIELDS
+   Label and field use a consistent width
+======================================== */
+.floor-modal > label {
+  display: block;
+  margin: 0 0 6px;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.floor-modal > input,
+.floor-modal > select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  margin: 0 0 16px;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  background: var(--elevated);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.floor-modal > input::placeholder {
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.floor-modal > input:focus,
+.floor-modal > select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.floor-modal > select {
+  appearance: none;
+  padding-right: 34px;
+  cursor: pointer;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238A8F98' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.floor-modal > select option {
+  background: var(--panel);
+  color: var(--text);
+}
+
+/* ========================================
+   INFORMATION / RESERVATION DETAILS
+======================================== */
+.floor-modal > p {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.floor-modal > p strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ========================================
+   FOOTER BUTTONS
+======================================== */
+.floor-modal-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 4px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.floor-modal-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 38px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+@media (max-width: 480px) {
+  .floor-modal-backdrop {
+    padding: 10px;
+  }
+
+  .floor-modal {
+    max-height: calc(100dvh - 20px);
+    padding: 0 16px 16px;
+  }
+
+  .floor-modal-header {
+    grid-template-columns: minmax(0, 1fr) 30px;
+    margin: 0 -16px 16px;
+    padding: 14px 16px 12px;
+  }
+
+  .floor-modal-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .floor-modal-actions .btn {
+    width: 100%;
+    padding: 0 8px;
+    white-space: normal;
+  }
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 560px) {
+  .ph { padding: 10px 12px; }
+  .ph .row.right { justify-content: flex-start; }
+  .legend { padding: 10px 12px; }
+  .pad { padding: 12px; }
+  .tgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .floor-modal-actions .btn,
+  .floor-modal-footer .btn { flex: 1; padding-block: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tbl, .chip, .btn, .floor-modal-close { transition: none; }
+  .tbl:hover { transform: none; }
+  .tbl[data-s="ready"] { animation: none; }
+  .floor-modal-backdrop { animation: none; }
+}
+
+/* =========================================================
+   ALIGNMENT GUARD – keep LAST.
+   Higher specificity so global button{} / .row / .btn rules
+   cannot break the layout.
+   ========================================================= */
+.floor-pnl.floor-act {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  align-self: stretch;
+  justify-self: stretch;
+  transform: none;
+  text-align: left;
+  overflow: hidden;
+}
+
+.floor-pnl.floor-act .floor-ph { width: 100%; }
+.flor-pnl.floor-act .floor-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  width: auto;
+  gap: 8px;
+}
+.floor-pnl.floor-act .floor-row.floor-right { justify-content: flex-end; }
+
+.floor-pnl.floor-act .floor-chip,
+.floor-pnl.floor-act .btn {
+  width: auto;
+  flex: 0 0 auto;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.floor-pnl.floor-act .floor-tgrid { width: 100%; }
+.floor-pnl.floor-act .floor-tgrid > .floor-tbl { width: auto; min-width: 0; }
+
+@media (max-width: 560px) {
+  .floor-pnl.floor-act .floor-row.floor-right { justify-content: flex-start; }
+}

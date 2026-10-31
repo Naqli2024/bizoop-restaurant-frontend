@@ -1,0 +1,255 @@
+/* KITCHEN PERFORMANCE */
+
+.kitchen-performance,
+.kitchen-performance * {
+  box-sizing: border-box;
+}
+
+.kitchen-performance {
+  width: 100%;
+  min-width: 0;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.kitchen-performance .ph {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.kitchen-performance .ph-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.kitchen-performance .ph-badge {
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  color:var(--accent);
+  background:var(--accent-dim);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+}
+
+.kitchen-scroll {
+  width: 100%;
+  padding-bottom: 12px;
+}
+
+/* METRIC CARDS */
+
+.kitchen-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px;
+}
+
+.kitchen-metric {
+  min-width: 0;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--border);
+  border-radius: 8px;
+}
+
+.kitchen-metric-label {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kitchen-metric-value {
+  margin: 12px 0 8px;
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 750;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kitchen-metric-value span {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.kitchen-metric-help {
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.kitchen-metric-help.dn {
+  color:var(--a2);
+}
+
+.kitchen-metric-help.up {
+  color: var(--green);
+}
+
+/* CHART LAYOUT */
+
+.kitchen-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 14px;
+}
+
+.kitchen-card {
+  min-width: 0;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.kitchen-card-header {
+  margin-bottom: 14px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0px;
+}
+
+/* RECHARTS BAR CHART */
+
+.kitchen-bar-chart {
+  width: 100%;
+  height: 245px;
+  min-width: 0;
+}
+
+/* SLOWEST DISHES */
+
+.slow-dishes {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.slow-dish-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 1.2fr) minmax(45px, 1fr) 40px;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.slow-dish-name {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slow-dish-track {
+  width: 100%;
+  height: 7px;
+  overflow: hidden;
+  background: var(--elevated);
+  border-radius: 10px;
+}
+
+.slow-dish-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.slow-dish-time {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 650;
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* CANCELLED TICKETS */
+
+.kitchen-cancelled {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.kitchen-cancelled span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.kitchen-cancelled strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+  .kitchen-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kitchen-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .kitchen-metrics {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .kitchen-metric {
+    padding: 10px;
+  }
+
+  .kitchen-metric-value {
+    font-size: 24px;
+  }
+
+  .kitchen-metric-help {
+    font-size: 10px;
+  }
+
+  .kitchen-charts {
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .kitchen-card {
+    padding: 10px;
+  }
+
+  .kitchen-bar-chart {
+    height: 220px;
+  }
+
+  .slow-dish-row {
+    grid-template-columns: minmax(80px, 1.1fr) minmax(35px, 1fr) 38px;
+    gap: 7px;
+  }
+}

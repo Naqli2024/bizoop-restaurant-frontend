@@ -1,0 +1,779 @@
+
+/* =========================================
+   SALES INTELLIGENCE — COMPLETE CSS
+   Preserve card layout and height
+========================================= */
+
+.si-page {
+  --si-card-bg: var(--surface, #111827);
+  --si-card-inner: var(--card, #151e30);
+  --si-line: var(--border, #2b354a);
+  --si-text-color: var(--text, #e5eaf5);
+  --si-muted-color: var(--muted, #8d9ab2);
+  --si-accent-color: var(--accent, #818cf8);
+  --si-green-color: var(--green, #34d399);
+  --si-red-color: var(--red, #fb7185);
+
+  width: 100%;
+  min-width: 0;
+  color: var(--si-text-color);
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+}
+
+.si-page *,
+.si-page *::before,
+.si-page *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.si-scroll {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--si-line) transparent;
+}
+
+.si-pad {
+  width: 100%;
+  min-width: 0;
+  padding: 14px;
+}
+
+.si-pad-top-zero {
+  padding-top: 0;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.si-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px;
+
+  border-bottom: 1px solid var(--si-line);
+  background: var(--si-card-bg);
+}
+
+.si-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  color: var(--si-text-color);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+.si-date-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+
+  border: 1px solid var(--accent-dim);
+  border-radius: 6px;
+  background: var(--accent-dim);
+
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.si-header-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.si-input {
+  min-width: 130px;
+  padding: 9px 11px;
+
+  border: 1px solid var(--si-line);
+  border-radius: 8px;
+  outline: none;
+
+  background: var(--si-card-bg);
+  color: var(--si-text-color);
+  font: inherit;
+  font-size: 12px;
+
+  transition: border-color 0.2s ease;
+}
+
+.si-input:hover {
+  border-color: var(--si-muted-color);
+}
+
+.si-input:focus {
+  border-color: var(--si-accent-color);
+  outline: none;
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--si-accent-color) 12%, transparent);
+}
+
+.si-input option {
+  background: var(--si-card-bg);
+  color: var(--si-text-color);
+}
+
+/* =========================================
+   BRANCH FILTERS
+========================================= */
+
+.si-branch-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding: 12px 14px;
+}
+
+.si-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 7px 13px;
+  border: 1px solid var(--si-line);
+  border-radius: 30px;
+
+  background: var(--si-card-bg);
+  color: var(--si-muted-color);
+
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.si-chip:hover {
+  border-color: var(--si-accent-color);
+  color: var(--si-text-color);
+}
+
+.si-chip.is-selected {
+  border-color: var(--si-accent-color);
+  background: color-mix(
+    in srgb,
+    var(--si-accent-color) 15%,
+    transparent
+  );
+  color: var(--si-accent-color);
+}
+
+/* =========================================
+   STATUS CARD
+========================================= */
+
+.si-status-card {
+  margin: 0 0 12px;
+  padding: 13px 15px;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--si-green-color) 35%,
+    var(--si-line)
+  );
+  border-radius: 10px;
+
+  background: color-mix(
+    in srgb,
+    var(--si-green-color) 6%,
+    var(--si-card-bg)
+  );
+
+  color: var(--si-text-color);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.si-status-card strong {
+  color: var(--si-green-color);
+}
+
+/* =========================================
+   KPI CARDS
+========================================= */
+
+.si-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 14px;
+  margin-bottom: 10px;
+}
+
+.si-metric-grid-second {
+  margin-bottom: 14px;
+}
+
+.si-metric-card {
+  position: relative;
+  min-width: 0;
+  padding: 14px;
+
+  border: 1px solid var(--si-line);
+  border-radius: 11px;
+  background: var(--si-card-bg);
+
+  box-shadow: 0 3px 12px rgb(0 0 0 / 8%);
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.si-metric-card:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--si-accent-color) 55%,
+    var(--si-line)
+  );
+  transform: translateY(-1px);
+}
+
+.si-metric-label {
+  color: var(--si-muted-color);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.si-metric-value {
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+
+  color: var(--si-text-color);
+  font-size: clamp(17px, 2vw, 23px);
+  font-weight: 800;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+}
+
+.si-metric-card[data-accent="green"] .si-metric-value {
+  color: var(--si-green-color);
+}
+
+.si-metric-card[data-accent="red"] .si-metric-value {
+  color: var(--si-red-color);
+}
+
+.si-metric-card[data-accent="accent"] .si-metric-value,
+.si-metric-card[data-accent="blue"] .si-metric-value {
+  color: var(--si-accent-color);
+}
+
+/* =========================================
+   CARD GRID
+========================================= */
+
+.si-grid-two {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* =========================================
+   CARDS
+========================================= */
+
+.si-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  height: auto;
+  align-self: stretch;
+  margin: 0 0 12px;
+  overflow: hidden;
+
+  border: 1px solid var(--si-line);
+  border-radius: 12px;
+  background: var(--si-card-bg);
+
+  box-shadow: 0 4px 16px rgb(0 0 0 / 9%);
+}
+
+.si-grid-two > .si-card {
+  min-width: 0;
+  margin-bottom: 0;
+}
+
+/* Card heading */
+
+.si-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--si-line);
+
+  /* background: var(--si-card-inner); */
+  color: var(--si-text-color);
+
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.si-card-header > span:first-child {
+  min-width: 0;
+}
+
+.si-muted {
+  color: var(--si-muted-color);
+  font-size: 11px;
+  font-weight: 450;
+  line-height: 1.6;
+}
+
+/* =========================================
+   TABLE WRAPPER
+   Independent border inside each card
+========================================= */
+
+ .si-table-wrap {
+  display: block;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+
+  margin: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  border: 1px solid var(--si-line);
+  border-radius: 8px;
+  background: var(--si-card-bg);
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--si-line) transparent;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+ .si-table {
+  width: 100%;
+  min-width: 400px;
+  margin: 0;
+
+  border: none;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  background: transparent;
+  color: var(--si-text-color);
+  font-size: 11px;
+}
+
+/* Table header */
+
+.si-card .si-table thead {
+  background: var(--si-card-inner);
+}
+
+ .si-table th {
+  padding: 12px 13px;
+
+  border: none;
+  border-bottom: 1px solid var(--si-line);
+
+  background: var(--si-card-inner);
+  color: var(--si-muted-color);
+
+  font-size: 10px;
+  font-weight: 750;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.si-card .si-table th.si-num-right {
+  text-align: right;
+}
+
+/* Table body */
+
+.si-card .si-table td {
+  padding: 12px 13px;
+
+  border: none;
+  border-bottom: 1px solid var(--si-line);
+
+  color: var(--si-text-color);
+  font-size: 11px;
+  line-height: 1.6;
+  vertical-align: middle;
+}
+
+/* Numeric columns */
+
+.si-card .si-table td.si-num-right,
+.si-card .si-table td.si-num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Final row */
+
+.si-card .si-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Hover effect */
+
+.si-card .si-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.si-card .si-table tbody tr:hover {
+  background: color-mix(
+    in srgb,
+    var(--si-accent-color) 7%,
+    transparent
+  );
+}
+
+/* Highlighted row */
+
+.si-card .si-table tbody tr.si-highlight-row {
+  background: color-mix(
+    in srgb,
+    var(--si-accent-color) 10%,
+    transparent
+  );
+}
+
+/* =========================================
+   SUMMARY ROWS
+========================================= */
+
+.si-summary-rows {
+  width: 100%;
+  min-width: 0;
+}
+
+.si-summary-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--si-line);
+
+  color: var(--si-muted-color);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.si-summary-row:last-child {
+  border-bottom: none;
+}
+
+.si-summary-row > :first-child {
+  min-width: 0;
+}
+
+.si-summary-row > :last-child {
+  min-width: 0;
+  color: var(--si-text-color);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.si-bold {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================
+   OUTLET ROWS
+========================================= */
+
+.si-outlet-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 11px 14px;
+  border: 0;
+  border-bottom: 1px solid var(--si-line);
+
+  background: transparent;
+  color: var(--si-text-color);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.si-outlet-row:last-child {
+  border-bottom: none;
+}
+
+.si-outlet-row:hover {
+  background: color-mix(
+    in srgb,
+    var(--si-accent-color) 7%,
+    transparent
+  );
+}
+
+/* =========================================
+   CHART
+========================================= */
+
+.si-chart-wrap {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  overflow: hidden;
+}
+
+.si-chart {
+  display: block;
+  width: 100%;
+  height: 240px;
+  min-height: 240px;
+  min-width: 0;
+}
+
+.si-chart-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 12px 2px 8px;
+
+  color: var(--si-muted-color);
+  font-size: 10px;
+}
+
+.si-chart-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.si-chart-legend i {
+  display: inline-block;
+  width: 17px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.si-legend-actual {
+  background: var(--si-green-color);
+}
+
+.si-legend-forecast {
+  background: var(--si-accent-color);
+}
+
+.si-legend-normal {
+  background: var(--si-muted-color);
+}
+
+.si-chart-wrap > .si-muted {
+  margin: 0;
+  padding: 3px 2px;
+}
+
+/* =========================================
+   VARIANCE LABELS
+========================================= */
+
+.si-positive {
+  color: var(--si-green-color);
+  font-weight: 700;
+}
+
+.si-negative {
+  color: var(--si-red-color);
+  font-weight: 700;
+}
+
+/* =========================================
+   CAPACITY ALERT
+========================================= */
+
+.si-capacity-alert {
+  margin: 12px;
+  padding: 12px 14px;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--si-red-color) 35%,
+    var(--si-line)
+  );
+  border-radius: 9px;
+
+  background: color-mix(
+    in srgb,
+    var(--si-red-color) 7%,
+    var(--si-card-bg)
+  );
+
+  color: var(--si-text-color);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.si-capacity-alert b {
+  color: var(--si-red-color);
+}
+
+/* =========================================
+   FOOTER NOTE
+========================================= */
+
+.si-model-note {
+  margin: 12px 0 16px;
+  padding: 12px 14px;
+  background: var(--si-card-bg);
+  color: var(--si-muted-color);
+
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   TABLET RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+  .si-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .si-grid-two {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+  .si-page-header {
+    align-items: flex-start;
+    padding: 11px;
+  }
+
+  .si-title {
+    font-size: 15px;
+  }
+
+  .si-header-controls {
+    width: 100%;
+  }
+
+  .si-input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .si-pad {
+    padding: 10px;
+  }
+
+  .si-branch-row {
+    padding: 10px;
+  }
+
+  .si-chip {
+    padding: 7px 10px;
+  }
+
+  .si-metric-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0 10px;
+  }
+
+  .si-metric-card {
+    padding: 11px;
+  }
+
+  .si-metric-value {
+    font-size: 17px;
+  }
+
+  .si-grid-two {
+    gap: 10px;
+  }
+
+  .si-card {
+    border-radius: 10px;
+  }
+
+  .si-card-header {
+    padding: 12px;
+  }
+
+  .si-card .si-table-wrap {
+    margin: 8px;
+  }
+
+  .si-card .si-table th,
+  .si-card .si-table td {
+    padding: 10px;
+  }
+
+  .si-chart {
+    height: 210px;
+    min-height: 210px;
+  }
+
+  .si-chart-wrap {
+    padding: 8px;
+  }
+
+  .si-summary-row {
+    padding: 10px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .si-metric-card,
+  .si-chip,
+  .si-card .si-table tbody tr,
+  .si-outlet-row {
+    transition: none;
+  }
+
+  .si-metric-card:hover {
+    transform: none;
+  }
+}
