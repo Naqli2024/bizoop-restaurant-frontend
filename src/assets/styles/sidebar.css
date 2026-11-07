@@ -285,29 +285,22 @@
 
 .sidebar-main-bar {
   flex: 1;
-
   width: 0;
   min-width: 0;
   min-height: 0;
   height: 100%;
-
-  overflow-x: hidden;
-  overflow-y: auto;
-
+  overflow: scroll;
   background: var(--bg);
   color: var(--text);
-
   box-sizing: border-box;
-  overscroll-behavior: contain;
 }
 
-.sidebar-main-bar::-webkit-scrollbar {
-  width: 2px;
-}
+
 
 .sidebar-main-bar::-webkit-scrollbar-thumb {
   background: var(--sub);
   border-radius: 10px;
+
 }
 
 .sidebar-main-bar::-webkit-scrollbar-track {

@@ -1,0 +1,275 @@
+/* ========================================
+   KITCHEN PANEL
+======================================== */
+
+.kp-root {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.kp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.kp-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.kp-tag {
+  padding: 6px 8px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius:999px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* ========================================
+   SCROLL & BODY
+======================================== */
+
+.kp-scroll {
+  width: 100%;
+  overflow-y: auto;
+}
+
+.kp-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 18px 24px;
+}
+
+/* ========================================
+   METRICS
+======================================== */
+
+.kp-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px 18px;
+}
+
+.kp-metric {
+  min-width: 0;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.kp-metric-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.kp-metric-value {
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.kp-metric-hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ========================================
+   CARDS
+======================================== */
+
+.kp-card {
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.kp-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.kp-card-note {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.kp-ai-line {
+  padding: 4px 0;
+}
+
+/* ========================================
+   TABLE
+======================================== */
+
+.kp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.kp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.kp-table th {
+  padding: 10px 14px;
+
+  background:var(--elevated);
+
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.kp-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.kp-num {
+  font-family: ui-monospace, Menlo, monospace;
+}
+
+.kp-right {
+  text-align:left;
+}
+
+.kp-gap {
+  color: var(--red);
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.kp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 4px 12px;
+
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s ease;
+}
+
+.kp-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.kp-btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.kp-btn-icon {
+  flex-shrink: 0;
+}
+
+/* ========================================
+   LINKS
+======================================== */
+
+.kp-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.kp-success-icon{
+    color: var(--green);
+    vertical-align: middle;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1000px) {
+  .kp-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .kp-header {
+    padding: 12px;
+  }
+
+  .kp-body {
+    padding: 0 12px 14px;
+  }
+
+  .kp-metrics {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .kp-metric {
+    padding: 12px;
+  }
+
+  .kp-card {
+    padding: 12px;
+  }
+
+  .kp-card-head {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .kp-table th,
+  .kp-table td {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .kp-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .kp-title {
+    font-size: 14px;
+  }
+}

@@ -34,7 +34,6 @@ const MENU_ITEMS = [
     { name: "Kothu Parotta", price: 190, food: 18, packLabour: 25, aggregator: 14, contribution: 133, pct: 70, type: "profit" },
     { name: "Chicken Biryani", price: 220, food: 96, packLabour: 28, aggregator: 16, contribution: 80, pct: 36, type: "review" },
 ];
-
 const WORKSPACES = [
     { label: "Sales IQ", tab: "sales-iq" },
     { label: "Billing", tab: "billing" },
@@ -54,9 +53,8 @@ export default function Sales() {
                     02 Sales <span className="scc-badge">Sales command centre</span>
                 </h2>
             </header>
-
+            
             <div className="scc-body">
-                {/* Summary stats */}
                 <div className="scc-stats">
                     {SUMMARY_STATS.map((s) => (
                         <article key={s.id} className={`scc-stat ${s.tone ? `scc-stat--${s.tone}` : ""}`}>
@@ -68,7 +66,6 @@ export default function Sales() {
                 </div>
 
                 <div className="scc-content">
-                    {/* Ambient AI */}
                     <div className="scc-panel">
                         <div className="scc-panel__head">✨ Ambient AI</div>
                         {AI_INSIGHTS.map((text) => (
@@ -77,16 +74,13 @@ export default function Sales() {
                             </div>
                         ))}
                     </div>
-
-                    {/* Contribution table */}
                     <div className="scc-panel">
                         <div className="scc-panel__head scc-panel__head--split">
                             <span>Contribution intelligence (per plate)</span>
                             <span className="scc-panel__note">
-                                packaging ₹8, labour 9% of price, aggregator 27% share × 22% commission (assumed)
+                                packaging ₹8, labour 9% of price, aggregator 27% share × 22% commission(assumed)
                             </span>
                         </div>
-
                         <div className="scc-table-wrap">
                             <table className="scc-table">
                                 <thead>
@@ -126,8 +120,6 @@ export default function Sales() {
                             </table>
                         </div>
                     </div>
-
-                    {/* Workspace shortcuts */}
                     <div className="scc-panel">
                         <div className="scc-panel__head">Open workspace</div>
                         <div className="scc-chips">

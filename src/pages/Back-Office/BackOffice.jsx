@@ -7,8 +7,6 @@ import {
 import '../../assets/styles/backoffice.css';
 import PurchaseModal from "./PurchaseModal";
 import PurchasePayModal from "./PurchasePayModal";
-
-
 const INITIAL_PURCHASES = [
     {
         id: "PB-001",

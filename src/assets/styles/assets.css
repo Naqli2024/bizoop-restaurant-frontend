@@ -1,0 +1,147 @@
+.assets-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 12px;
+}
+
+.assets-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.assets-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.assets-badge {
+    padding: 6px 8px;
+    border-radius: 999px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.assets-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px 24px;
+}
+
+/* Metrics grid */
+.assets-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.assets-metric {
+    padding: 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.assets-metric--green {
+    --assets-accent: var(--green);
+}
+
+.assets-metric-label {
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.assets-metric-value {
+    display: flex;
+    align-items: center;
+    min-height: 20px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.assets-metric-hint {
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+/* Status dots (replaces emoji circles) */
+.assets-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+}
+
+.assets-dot--ok {
+    background: var(--green);
+}
+
+.assets-dot--critical {
+    background: var(--red);
+}
+
+.assets-dot--warn {
+    background: var(--orange);
+}
+
+/* Cards */
+.assets-content {
+    margin-top: 24px;
+}
+
+.assets-card {
+    margin-bottom: 10px;
+    padding: 12px 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.assets-card-header {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.assets-row {
+    padding: 4px 0;
+}
+
+.assets-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.assets-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.assets-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .assets-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

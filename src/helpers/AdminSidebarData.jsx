@@ -28,9 +28,9 @@ export const AdminSidebarData = [
         label: "Sales",
       },
       {
-        path: "ops",
+        path: "operations",
         icon: <AlignJustify size={15} />,
-        label: "Ops",
+        label: "Operations",
       },
       {
         path: "kitchen",
@@ -38,9 +38,9 @@ export const AdminSidebarData = [
         label: "Kitchen",
       },
       {
-        path: "store",
+        path: "admin-store",
         icon: <Hexagon size={15} />,
-        label: "Store",
+        label: "admin-store",
       },
       {
         path: "procure",

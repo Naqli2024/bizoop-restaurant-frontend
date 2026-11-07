@@ -1,7 +1,9 @@
 /* ==========================================================
-   Returns, refunds & cancellations — styles
+   Returns, refunds & cancellations — styles (single file)
    Themes: [data-theme="dark"] (default) and [data-theme="light"]
-   Breakpoints: 1100px (table -> cards), 700px, 480px
+   Every component below reads from the same tokens, so one
+   data-theme attribute switches the whole screen.
+   Breakpoints: 1100px (table -> cards), 860px, 640px, 560px, 400px
    ========================================================== */
 
 :root,
@@ -25,6 +27,7 @@
   --accent: #3b8bff;
   --accent-bg: rgba(59, 139, 255, 0.14);
   --accent-border: rgba(59, 139, 255, 0.55);
+  --accent-glow: rgba(59, 139, 255, 0.35);
 
   --void-fg: #ff6a5e;     --void-bg: rgba(255, 90, 77, 0.14);
   --full-fg: #f5b83d;     --full-bg: rgba(245, 184, 61, 0.14);
@@ -57,6 +60,7 @@
   --accent: #1b61d6;
   --accent-bg: rgba(27, 97, 214, 0.1);
   --accent-border: rgba(27, 97, 214, 0.5);
+  --accent-glow: rgba(27, 97, 214, 0.25);
 
   --void-fg: #c42a1d;     --void-bg: rgba(217, 47, 33, 0.1);
   --full-fg: #8f6100;     --full-bg: rgba(214, 150, 10, 0.16);
@@ -89,6 +93,7 @@
 
 .rr h1,
 .rr h2,
+.rr h3,
 .rr p {
   margin: 0;
 }
@@ -99,7 +104,8 @@
   cursor: pointer;
 }
 
-.rr button:focus-visible {
+.rr button:focus-visible,
+.rr :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -406,8 +412,177 @@
 }
 
 /* ==========================================================
-   Tablet & below: table rows become cards
+   Insights panels (below the table)
+   Uses the shared tokens above — no separate theme variables.
    ========================================================== */
+.ri {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.ri-panel {
+  min-width: 0;
+  padding: 18px 18px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.ri-heading {
+  padding-bottom: 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.ri-heading--divided {
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.ri-heading--sub {
+  margin-top: 14px;
+}
+
+/* ---------- Bar lists ---------- */
+.ri-bars {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0 0;
+}
+
+.ri-bars + .ri-heading--sub {
+  margin-top: 10px;
+}
+
+.ri-bar-row {
+  padding: 0 0 7px;
+}
+
+.ri-bar-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ri-bar-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.ri-bar-value {
+  flex-shrink: 0;
+  color: var(--text);
+  font-family: "JetBrains Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ri-track {
+  position: relative;
+  height: 3px;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.ri-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  transition: width 0.35s ease;
+}
+
+.ri-empty {
+  padding: 14px 0 6px;
+  color: var(--text-3);
+}
+
+/* ---------- Key / description rows ---------- */
+.ri-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ri-item {
+  display: grid;
+  grid-template-columns: minmax(120px, 190px) 1fr;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 4px;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 4px;
+}
+
+.ri-item:last-child {
+  border-bottom: 0;
+}
+
+.ri-item:hover {
+  background: var(--row-hover);
+}
+
+.ri-item-key {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.ri-item-icon {
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.ri-item-desc {
+  text-align: right;
+  color: var(--text-3);
+}
+
+/* ---------- Rules ---------- */
+.ri-rules .ri-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--text);
+}
+
+.ri-tick {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--done-fg);
+  font-weight: 700;
+}
+
+.ri-foot {
+  padding: 8px 4px 2px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-3);
+  font-size: 11.5px;
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+
+/* Tablet & below: table rows become cards */
 @media (max-width: 1100px) {
   .rr-table-wrap {
     border: 0;
@@ -521,9 +696,14 @@
   .rr-empty td::before {
     content: none;
   }
+
+  /* insights */
+  .ri-item {
+    grid-template-columns: minmax(110px, 150px) 1fr;
+  }
 }
 
-/* ---------- Tablet portrait ---------- */
+/* Tablet portrait */
 @media (max-width: 860px) {
   .rr-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -534,9 +714,13 @@
     padding-left: 16px;
     padding-right: 16px;
   }
+
+  .ri {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
-/* ---------- Phone ---------- */
+/* Phone */
 @media (max-width: 640px) {
   .rr-table tbody {
     grid-template-columns: minmax(0, 1fr);
@@ -565,6 +749,34 @@
   }
 }
 
+@media (max-width: 560px) {
+  .ri {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .ri-panel {
+    padding: 14px 12px 10px;
+    border-radius: 8px;
+  }
+
+  .ri-bar-label {
+    font-size: 12.5px;
+  }
+
+  /* stack key above description */
+  .ri-item {
+    grid-template-columns: 1fr;
+    gap: 2px;
+    padding: 8px 2px;
+  }
+
+  .ri-item-desc {
+    padding-left: 24px;
+    text-align: left;
+  }
+}
+
 @media (max-width: 400px) {
   .rr-stats {
     grid-template-columns: minmax(0, 1fr);
@@ -576,7 +788,7 @@
   }
 }
 
-/* ---------- Large screens ---------- */
+/* Large screens */
 @media (min-width: 1600px) {
   .rr {
     font-size: 14px;

@@ -1,0 +1,671 @@
+/* All styles are scoped under .command so nothing leaks into the rest of the app */
+
+.command {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.command *,
+.command *::before,
+.command *::after {
+    box-sizing: border-box;
+}
+
+/* ---------- Header ---------- */
+.command .command-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.command .ph-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.command .ph-badge {
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 6px 8px;
+    border-radius: 999px;
+}
+
+.command .tag {
+    font-size: 12px;
+    padding: 6px 8px;
+    border-radius: 999px;
+}
+
+.command .t-ok {
+    color: var(--green);
+    background: rgba(46, 204, 113, 0.12);
+}
+
+/* ---------- Layout ---------- */
+.command .command-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 16px;
+}
+
+.command .pad {
+    padding: 14px 18px 0px;
+}
+
+.command .g2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.command .mg {
+    display: grid;
+    gap: 10px;
+    padding: 0 14px;
+    margin-bottom: 10px;
+}
+
+.command .mg-4 {
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 12px;
+}
+
+.command .mg-6 {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+
+.command .actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.command .actions>.btn {
+    width: auto;
+    flex: 0 0 auto;
+}
+
+.command .mt {
+    margin-top: 8px;
+}
+
+.command-sub {
+    color: var(--text);
+    font-size: 13px;
+}
+
+/* ---------- Cards ---------- */
+.command .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 12px 8px;
+    margin-bottom: 10px;
+}
+
+.command .g2 .card {
+    margin-bottom: 0;
+}
+
+.command .card-hdr {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+    padding-bottom: 10px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.command .card-aside {
+    font-weight: 400;
+}
+
+.command .srow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+.command .srow:last-child {
+    border-bottom: 0;
+}
+
+.command .muted {
+    color: var(--muted);
+}
+
+.command .sub {
+    font-size: 11px;
+    margin-left: 16px;
+}
+
+.command .num {
+    font-variant-numeric: tabular-nums;
+}
+
+.command .neg {
+    color: var(--red);
+}
+
+/* ---------- Status dots ---------- */
+.command .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
+
+.command .dot.red {
+    background: var(--red);
+}
+
+.command .dot.orange {
+    background: var(--orange);
+}
+
+.command .dot.green {
+    background: var(--green);
+}
+
+/* ---------- KPI tiles ---------- */
+.command .kpi {
+    all: unset;
+    display: block;
+    cursor: pointer;
+}
+
+.command .kpi:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.command .mc {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    height: 100%;
+}
+
+.command .kpi:hover .mc {
+    border-color: var(--accent);
+}
+
+.command .mc.accent-green {
+    --accent: var(--green);
+}
+
+.command .mc.accent-primary {
+    --accent: var(--accent);
+}
+
+.command .mc.accent-orange {
+    --accent: var(--orange);
+}
+
+.command .mc.accent-blue {
+    --accent: var(--blue);
+}
+
+.command .mc-l {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.command .mc-v {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 2px 0;
+}
+
+.command .mc-h {
+    font-size: 12px;
+    min-height: 12px;
+}
+
+/* ---------- Buttons ---------- */
+.command .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.command .btn:hover {
+    border-color: var(--border2);
+    background: var(--surface);
+    color: var(--text)
+}
+
+.command .btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.command .btn-sm {
+    padding: 3px 10px;
+    font-size: 12px;
+}
+
+.command .btn-p {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.command .btn-p:hover {
+    background: #3aa0ff;
+    border-color: #3aa0ff;
+}
+
+.command .bi {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.command .footnote {
+    font-size: 12px;
+    margin: 12px 0 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+    .command .mg-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .command .mg-6 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .command .g2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .command .mg-6 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+.why-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 12px;
+    color: var(--text);
+}
+
+.why-overlay *,
+.why-overlay *::before,
+.why-overlay *::after {
+    box-sizing: border-box;
+}
+
+.why-box {
+    width: min(640px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 16px 20px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.why-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.why-x {
+    display: inline-flex;
+    padding: 4px;
+    color: var(--muted);
+    background: none;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.why-x:hover {
+    color: var(--text);
+    background: var(--elevated);
+}
+
+.why-x:focus-visible,
+.why-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* Stat tiles */
+.why-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.why-stat {
+    padding: 10px 14px;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+}
+
+.why-stat-label {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.why-stat-value {
+    margin-top: 2px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Breakdown */
+.why-section {
+    margin: 14px 0 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+}
+
+.why-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.why-num {
+    font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.why-num.red {
+    color: var(--red);
+}
+
+.why-num.green {
+    color: var(--green);
+}
+
+/* Root cause */
+.why-cause {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+/* Footer */
+.why-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.why-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 14px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.why-btn:hover {
+    background: var(--elevated);
+}
+
+.why-btn-primary {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.why-btn-primary:hover {
+    background: #3aa0ff;
+}
+
+@media (max-width: 480px) {
+    .why-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Item workspace modal — every class is prefixed with "ws-";
+   variables live on the overlay so the modal doesn't depend on any parent */
+
+.ws-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 12px;
+    color: var(--text);
+}
+
+.ws-overlay *,
+.ws-overlay *::before,
+.ws-overlay *::after {
+    box-sizing: border-box;
+}
+
+.ws-box {
+    width: min(805px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 16px 22px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+
+.ws-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.ws-x {
+    display: inline-flex;
+    padding: 4px;
+    color: var(--muted);
+    background: none;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.ws-x:hover {
+    color: var(--text);
+    background: var(--elevated);
+}
+
+.ws-x:focus-visible,
+.ws-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* Two-column grid of cards */
+.ws-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+}
+
+.ws-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ws-card {
+    padding: 12px 16px 8px;
+    background: var(--card);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+}
+
+.ws-card-title {
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border2);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.ws-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border2);
+}
+
+.ws-line:last-child {
+    border-bottom: 0;
+}
+
+.ws-val {
+    font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.ws-val.red {
+    color: var(--red);
+    font-weight: 400;
+}
+
+.ws-val.green {
+    color: var(--green);
+    font-weight: 400;
+}
+
+/* AI note */
+.ws-ai {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: rgba(255, 193, 7, 0.12);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 8px;
+    line-height: 1.5;
+    color: var(--text);
+}
+
+/* Footer */
+.ws-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.ws-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 7px 14px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+}
+
+.ws-btn:hover {
+    background: var(--elevated);
+}
+
+@media (max-width: 640px) {
+    .ws-grid {
+        grid-template-columns: 1fr;
+    }
+}
