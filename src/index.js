@@ -5,10 +5,14 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { ThemeProvider } from "./helpers/ThemeContext";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  <Provider store={store}>
   <ThemeProvider>
     <App />
-  </ThemeProvider>,
+  </ThemeProvider>
+  </Provider>
 );

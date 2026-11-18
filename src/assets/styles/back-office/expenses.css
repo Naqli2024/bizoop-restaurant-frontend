@@ -1,0 +1,315 @@
+.xb-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+/* ---------- header ---------- */
+.xb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.xb-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.xb-badge {
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.xb-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.xb-btn-primary:hover { filter: brightness(1.1); }
+.xb-btn-primary:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.xb-btn-icon {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* ---------- body ---------- */
+.xb-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 18px 24px;
+}
+
+/* ---------- stat cards ---------- */
+.xb-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.xb-stat {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.xb-stat-label {
+  margin-bottom: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.xb-stat-value {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ---------- table ---------- */
+.xb-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.xb-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.xb-table th,
+.xb-table td {
+  padding: 10px 14px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.xb-table th {
+  background: var(--elevated);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.xb-table td {
+  border-top: 1px solid var(--border);
+}
+
+.xb-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.xb-table .xb-right {
+  text-align: right;
+}
+
+.xb-mono {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.xb-empty {
+  padding: 28px 14px;
+  color: var(--muted);
+  text-align: center !important;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .xb-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .xb-stats { grid-template-columns: 1fr; }
+  .xb-header { flex-wrap: wrap; }
+}
+
+/* Modal is portaled to <body>, so variables are defined on the overlay itself */
+.xm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  font-size: 14px;
+  animation: xm-fade 0.15s ease-out;
+}
+
+.xm-dialog {
+  width: 100%;
+  max-width: 540px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 24px 26px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  animation: xm-pop 0.18s ease-out;
+}
+
+/* ---------- header ---------- */
+.xm-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.xm-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.xm-close {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+}
+.xm-close:hover { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+
+/* ---------- form ---------- */
+.xm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 0 26px;
+}
+
+.xm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.xm-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.xm-input,
+.xm-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+}
+
+.xm-input:focus,
+.xm-select:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.2);
+}
+
+.xm-input[aria-invalid="true"] { border-color: var(--red); }
+
+.xm-error {
+  color: var(--red);
+  font-size: 12px;
+}
+
+/* hide number spinners */
+.xm-input[type="number"] { appearance: textfield; -moz-appearance: textfield; }
+.xm-input[type="number"]::-webkit-outer-spin-button,
+.xm-input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* ---------- footer ---------- */
+.xm-foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.xm-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.xm-btn:hover { background: rgba(255, 255, 255, 0.05); }
+.xm-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+.xm-btn-primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+.xm-btn-primary:hover { background: var(--blue); filter: brightness(1.1); }
+
+.xm-btn-icon {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+/* ---------- motion ---------- */
+@keyframes xm-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes xm-pop  { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .xm-overlay, .xm-dialog { animation: none; }
+}

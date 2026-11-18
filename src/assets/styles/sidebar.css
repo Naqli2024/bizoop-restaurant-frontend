@@ -4,7 +4,7 @@
 
 :root {
   --header-height: 54px;
-  --sidebar-width: 76px;
+  --sidebar-width: 84px;
   --sidebar-collapsed-width: 64px;
 }
 
@@ -75,13 +75,14 @@
   min-height: 0;
   width: 100%;
 
-  padding:10px 4px;
+  padding: 10px 6px;
 
   overflow-x: hidden;
   overflow-y: auto;
 
   box-sizing: border-box;
   overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 
 .sidebar-nav::-webkit-scrollbar {
@@ -135,11 +136,12 @@
   gap: 5px;
 
   width: 100%;
+  min-width: 0;
   height: 64px;
   min-height: 60px;
   flex-shrink: 0;
 
-  padding: 6px 4px;
+  padding: 6px 2px;
 
   background: transparent;
   color: var(--muted);
@@ -155,6 +157,7 @@
 
   cursor: pointer;
   box-sizing: border-box;
+  overflow: hidden;
 
   transition:
     background-color 0.2s ease,
@@ -209,13 +212,21 @@
 .sidebar-label {
   display: block;
 
+  width: 100%;
+  min-width: 0;
   max-width: 100%;
+  padding: 0 2px;
+  box-sizing: border-box;
+
   overflow: hidden;
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  /* wrap long labels (e.g. "Staff & Pay") instead of clipping */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
 
-  line-height: 1.2;
+  text-align: center;
+  line-height: 1.15;
 }
 
 .sidebar-main.collapsed .sidebar-link-label,
@@ -238,6 +249,49 @@
 
   border-radius: 50%;
   background: var(--accent);
+}
+
+/* ========================================
+   LOGOUT BUTTON
+======================================== */
+
+.sidebar-logout {
+  flex-shrink: 0;
+  width: calc(100% - 12px);
+  height: 64px;
+  margin: 8px 6px 0;
+
+  /* same stacked icon + label layout as other links */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  color: #ef4444;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.sidebar-logout:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.sidebar-logout .sidebar-icon,
+.sidebar-logout .sidebar-label {
+  color: inherit;
+}
+
+.sidebar-main.collapsed .sidebar-logout {
+  width: calc(100% - 12px);
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* ========================================
@@ -289,24 +343,20 @@
   min-width: 0;
   min-height: 0;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   background: var(--bg);
   color: var(--text);
   box-sizing: border-box;
 }
 
-
-
 .sidebar-main-bar::-webkit-scrollbar-thumb {
   background: var(--sub);
   border-radius: 10px;
-
 }
 
 .sidebar-main-bar::-webkit-scrollbar-track {
   background: transparent;
 }
-
 
 /* ========================================
    MOBILE SIDEBAR CONTROLS
@@ -343,7 +393,7 @@
 /* Tablet */
 @media (max-width: 900px) {
   :root {
-    --sidebar-width: 64px;
+    --sidebar-width: 72px;
     --sidebar-collapsed-width: 54px;
     --header-height: 102px;
   }
@@ -410,7 +460,7 @@
     height: 58px;
     min-height: 58px;
     padding: 5px 2px;
-    font-size: 9px;
+    font-size: 9.5px;
     line-height: 1.2;
     text-align: center;
     border-radius: 8px;
@@ -418,6 +468,12 @@
 
   .sidebar-link.active {
     border-left: 3px solid var(--accent);
+  }
+
+  .sidebar-logout {
+    height: 58px;
+    margin: 6px 4px 0;
+    width: calc(100% - 8px);
   }
 
   .sidebar-icon,
@@ -444,12 +500,13 @@
     min-width: 0;
     max-width: 100%;
     margin: 0;
-    font-size: 9px;
-    line-height: 1.2;
+    font-size: 9.5px;
+    line-height: 1.15;
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
     overflow: hidden;
-    text-overflow: ellipsis;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
   }
 
   .sidebar-active-dot {
@@ -606,6 +663,21 @@
     border-left: 3px solid var(--accent);
   }
 
+  /* Logout becomes a horizontal row inside the drawer */
+  .sidebar-logout,
+  .sidebar-main.collapsed .sidebar-logout {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: calc(100% - 20px);
+    height: 44px;
+    min-height: 44px;
+    margin: 8px 10px 10px;
+    padding: 0 12px;
+    text-align: left;
+  }
+
   .sidebar-icon,
   .sidebar-link-icon {
     display: flex;
@@ -633,6 +705,7 @@
     min-width: 0;
     max-width: none;
     margin: 0;
+    padding: 0;
 
     font-size: 12px;
     line-height: 1.3;
@@ -729,6 +802,257 @@
   .sidebar-main,
   .sidebar-link,
   .body-wrap {
+    transition: none;
+  }
+}
+
+/* ========================================
+   CONFIRM DIALOG
+======================================== */
+
+/* Overlay (shared with other business modals) */
+
+.businesses-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+
+  box-sizing: border-box;
+  animation: confirm-fade-in 0.18s ease;
+}
+
+/* Dialog box */
+
+.confirm-dialog {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  max-width: 400px;
+  padding: 28px 24px 22px;
+
+  background: var(--surface);
+  color: var(--text);
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+
+  text-align: center;
+  box-sizing: border-box;
+
+  animation: confirm-pop-in 0.2s ease;
+}
+
+/* Close button */
+
+.confirm-dialog .businesses-modal-close,
+.confirm-dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  background: transparent;
+  color: var(--muted);
+
+  border: 0;
+  border-radius: 8px;
+
+  font-size: 18px;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.confirm-dialog-close:hover {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+.confirm-dialog-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Icon */
+
+.confirm-dialog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+  margin-bottom: 14px;
+
+  background: var(--accent-dim);
+  color: var(--accent);
+
+  border-radius: 50%;
+  font-size: 26px;
+}
+
+.confirm-dialog-icon-danger {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+/* Text */
+
+.confirm-dialog-title {
+  margin: 0 0 8px;
+
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.confirm-dialog-message {
+  margin: 0 0 22px;
+
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+/* Actions */
+
+.confirm-dialog-actions {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.confirm-dialog-actions button {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  padding: 0 14px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+  box-sizing: border-box;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.confirm-dialog-actions button:active {
+  transform: scale(0.98);
+}
+
+.confirm-dialog-actions button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Cancel */
+
+.confirm-dialog-actions .businesses-modal-secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.confirm-dialog-actions .businesses-modal-secondary:hover {
+  background: var(--panel);
+}
+
+/* Confirm (default) */
+
+.confirm-dialog-actions .businesses-modal-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.confirm-dialog-actions .businesses-modal-primary:hover {
+  filter: brightness(1.08);
+}
+
+/* Confirm (danger) */
+
+.confirm-dialog-actions .confirm-dialog-danger-btn {
+  background: #ef4444;
+  color: #fff;
+}
+
+.confirm-dialog-actions .confirm-dialog-danger-btn:hover {
+  background: #dc2626;
+}
+
+/* Animations */
+
+@keyframes confirm-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes confirm-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Small screens */
+
+@media (max-width: 420px) {
+  .confirm-dialog {
+    padding: 24px 18px 18px;
+  }
+
+  .confirm-dialog-actions {
+    flex-direction: column-reverse;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .businesses-modal-overlay,
+  .confirm-dialog {
+    animation: none;
+  }
+
+  .confirm-dialog-actions button,
+  .confirm-dialog-close {
     transition: none;
   }
 }

@@ -1,0 +1,150 @@
+.intel-panel {
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    min-height: 100%;
+}
+
+.intel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.intel-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.intel-badge {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 6px 8px;
+    border-radius: 999px;
+}
+
+.intel-scroll {
+    overflow-y: auto;
+    padding: 14px 18px;
+}
+
+.intel-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.intel-stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.intel-stat__label {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 6px;
+}
+
+.intel-stat__value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.intel-stat__hint {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 14px;
+}
+
+.intel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.intel-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+}
+
+.intel-card__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+}
+
+.intel-card__note {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.intel-row {
+    margin: 0;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.intel-row:last-child {
+    border-bottom: 0;
+}
+
+.intel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.intel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.intel-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.intel-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .intel-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .intel-stats {
+        grid-template-columns: 1fr;
+    }
+}

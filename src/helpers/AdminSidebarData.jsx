@@ -38,14 +38,19 @@ export const AdminSidebarData = [
         label: "Kitchen",
       },
       {
-        path: "admin-store",
+        path: "store",
         icon: <Hexagon size={15} />,
-        label: "admin-store",
+        label: "Store",
       },
       {
         path: "procure",
         icon: <File size={15} />,
         label: "Procure",
+      },
+      {
+        path: "staff",
+        icon: <Users size={15} />,
+        label: "Staff & Pay",
       },
       {
         path: "people",

@@ -1,0 +1,122 @@
+.cx-panel {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+}
+
+/* header */
+.cx-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.cx-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.cx-tag {
+  padding: 6px 8px;
+  border-radius: 999px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* layout */
+.cx-body {
+  padding: 14px 18px 24px;
+  overflow-y: auto;
+}
+.cx-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.cx-content {
+  margin-top: 28px;
+}
+
+/* metric cards */
+.cx-metric {
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.cx-metric--danger { --cx-metric-accent: var(--red); }
+.cx-metric--alt    { --cx-metric-accent: var(--orange); }
+
+.cx-metric__label { color: var(--muted); }
+.cx-metric__value {
+  margin: 6px 0 4px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.cx-metric__hint { color: var(--muted); }
+
+/* boxes */
+.cx-box {
+  margin-bottom: 10px;
+  padding: 16px 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.cx-box__title {
+  margin: 0 0 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+}
+.cx-box__row {
+  font-size: 12px;
+}
+
+/* action pills */
+.cx-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cx-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+.cx-pill:hover { border-color: var(--accent); color: var(--accent); }
+.cx-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.cx-icon {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 900px) {
+  .cx-metrics { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .cx-metrics { grid-template-columns: 1fr; }
+}

@@ -1,6 +1,6 @@
 /* =========================================================
    floor.css – Floor, FloorHeader, FloorLegend, FloorTable,
-   FloorOrder, FloorModal
+   FloorModal
    Uses the global theme variables (--bg, --surface, --panel,
    --elevated, --border, --accent ...).
    ========================================================= */
@@ -9,20 +9,23 @@
 .floor-pnl {
   display: none;
   flex-direction: column;
-  /* Set --floor-offset to the height of any bar above the panel. */
-  height: calc(100vh - var(--floor-offset, 0px));
-  height: calc(100dvh - var(--floor-offset, 0px));
+  height: 100%;
   min-height: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
 }
-.floor-pnl.floor-act { display: flex; }
 
-/* Fixed-size bars never shrink; only .scroll flexes */
-.floor-pnl > .floor-ph,
-.floor-pnl > .floor-stn-tabs,
-.floor-pnl > .floor-legend { flex: 0 0 auto; }
+.floor-pnl.floor-act {
+  display: flex;
+}
+
+/* Fixed-size bars never shrink; only .floor-scroll flexes */
+.floor-pnl>.floor-ph,
+.floor-pnl>.floor-stn-tabs,
+.floor-pnl>.floor-legend {
+  flex: 0 0 auto;
+}
 
 /* ---------- Header ---------- */
 .floor-ph {
@@ -35,6 +38,7 @@
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
+
 .floor-ph-title {
   display: inline-flex;
   align-items: center;
@@ -43,6 +47,7 @@
   font-weight: 700;
   white-space: nowrap;
 }
+
 .floor-ph-badge {
   padding: 2px 9px;
   border-radius: 999px;
@@ -54,9 +59,19 @@
 }
 
 /* ---------- Layout helpers ---------- */
-.floor-row { display: flex; align-items: center; gap: 8px; }
-.floor-row.floor-wrap { flex-wrap: wrap; }
-.floor-row.floor-right { justify-content: flex-end; }
+.floor-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.floor-row.floor-wrap {
+  flex-wrap: wrap;
+}
+
+.floor-row.floor-right {
+  justify-content: flex-end;
+}
 
 /* ---------- Chips ---------- */
 .floor-chip {
@@ -72,8 +87,13 @@
   cursor: pointer;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
-.floor-chip:hover { color: var(--text); border-color: var(--muted); }
-.floor-chip.sel {
+
+.floor-chip:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.floor-chip.floor-sel {
   background: var(--accent-dim);
   border-color: var(--accent);
   color: var(--accent);
@@ -102,12 +122,19 @@
   transform: translateY(1px);
 }
 
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
 .btn.btn-sm {
   padding: 6px 12px;
   font-size: 0.82rem;
   border: 1px solid var(--border2);
   background: var(--surface);
-  color:var(--muted);
+  color: var(--muted);
 }
 
 /* Primary button color */
@@ -122,6 +149,7 @@ button.btn.btn-p:hover {
   border-color: var(--accent, #10b981);
   filter: brightness(1.12);
 }
+
 .floor-chip:focus-visible,
 .btn:focus-visible,
 .floor-modal-close:focus-visible {
@@ -135,6 +163,7 @@ button.btn.btn-p:hover {
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
+
 .floor-legend {
   display: flex;
   align-items: center;
@@ -145,11 +174,12 @@ button.btn.btn-p:hover {
   font-size: 0.78rem;
   color: var(--muted);
 }
-/* standalone legend (direct child of .pnl) keeps its own bar */
-.floor-pnl > .floor-legend {
+
+.floor-pnl>.floor-legend {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
 }
+
 .floor-legend-item,
 .floor-legend span {
   display: inline-flex;
@@ -157,19 +187,29 @@ button.btn.btn-p:hover {
   gap: 6px;
   flex: none;
 }
+
 .floor-legend i {
   width: 10px;
   height: 10px;
   border-radius: 3px;
   display: inline-block;
   flex: none;
+  background: var(--table-color, var(--muted));
 }
 
 /* ---------- Scroll area & sections ---------- */
-.floor-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-.floor-pad { padding: 16px; }
+.floor-scroll {
+  flex: 1 ;
+  overflow-y: auto;
+}
 
-.floor-section + .floor-section { margin-top: 20px; }
+.floor-pad {
+  padding: 16px;
+}
+
+.floor-section+.floor-section {
+  margin-top: 20px;
+}
 
 .floor-sec-h {
   display: flex;
@@ -228,6 +268,7 @@ button.floor-tbl {
   overflow: hidden;
   transition: transform 0.12s, border-color 0.12s, opacity 0.2s;
 }
+
 .floor-tbl::before {
   content: "";
   position: absolute;
@@ -238,26 +279,48 @@ button.floor-tbl {
   border-radius: 0 4px 4px 0;
   background: var(--table-color);
 }
+
 .floor-tbl:hover {
   transform: translateY(-2px);
   border-color: color-mix(in srgb, var(--table-color) 60%, var(--border2));
 }
-.floor-tbl:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 
-/* Status colours (FloorTable/FloorOrder only set data-s) */
-.floor-tbl[data-s="free"]      { --table-color: var(--green); background: var(--panel); }
-.floor-tbl[data-s="res"]       { --table-color: var(--muted); border-style: dashed; }
-.floor-tbl[data-s="ordering"]  { --table-color: var(--blue); }
-.floor-tbl[data-s="kitchen"],
-.floor-tbl[data-s="preparing"] { --table-color: var(--a2); }
-.floor-tbl[data-s="ready"]     { --table-color: var(--green); animation: ready-pulse 2s ease-in-out infinite; }
-.floor-tbl[data-s="served"]    { --table-color: var(--purple); }
-.floor-tbl[data-s="bill"],
-.floor-tbl[data-s="billing"]   { --table-color: var(--red); }
+.floor-tbl:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
 
-@keyframes ready-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 transparent; }
-  50%      { box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 28%, transparent); }
+/* ---------- Status colours ----------
+   data-s holds the raw occupancyStatus text from the API.
+   Shared by table cards and legend swatches.
+   Add a line here for any other status your backend returns. */
+.floor-tbl[data-s="Available"],
+.floor-legend i[data-s="Available"] {
+  --table-color: var(--green);
+}
+
+.floor-tbl[data-s="Partially Occupied"],
+.floor-legend i[data-s="Partially Occupied"] {
+  --table-color: var(--a2);
+}
+
+.floor-tbl[data-s="Occupied"],
+.floor-legend i[data-s="Occupied"] {
+  --table-color: var(--red);
+}
+
+.floor-tbl[data-s="Reserved"],
+.floor-legend i[data-s="Reserved"] {
+  --table-color: var(--purple);
+}
+
+/* Available tables use the plain panel background */
+.floor-tbl[data-s="Available"] {
+  background: var(--panel);
+}
+
+.floor-tbl[data-s="Reserved"] {
+  border-style: dashed;
 }
 
 .floor-tn {
@@ -269,8 +332,20 @@ button.floor-tbl {
   font-weight: 800;
   line-height: 1.1;
 }
-.floor-tn small { font-size: 0.7rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
-.floor-tt { font-size: 0.78rem; font-weight: 700; color: var(--table-color); }
+
+.floor-tn small {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.floor-tt {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--table-color);
+}
+
 .floor-tm {
   flex: 1 1 auto;
   min-width: 0;
@@ -279,6 +354,7 @@ button.floor-tbl {
   color: var(--muted);
   overflow-wrap: anywhere;
 }
+
 .floor-ta {
   margin-top: auto;
   font-size: 1rem;
@@ -286,7 +362,15 @@ button.floor-tbl {
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
-
+.floor-os {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.floor-os[data-os="Active"]    { color: #0f766e; } /* teal */
+.floor-os[data-os="preparing"] { color: #b45309; } /* amber */
+.floor-os[data-os="served"]    { color: #15803d; } /* green */
+.floor-os[data-os="billed"]    { color: #1d4ed8; } /* blue */
+.floor-os[data-os="cancelled"] { color: #b91c1c; } /* red */
 /* ========================================
    FLOOR MODAL BACKDROP
 ======================================== */
@@ -390,20 +474,25 @@ button.floor-tbl {
 
 /* ========================================
    FORM FIELDS
-   Label and field use a consistent width
+   Applies to fields directly in the modal AND
+   fields inside .floor-grid2 columns.
 ======================================== */
-.floor-modal > label {
+.floor-modal>label,
+.floor-grid2>div>label {
   display: block;
   margin: 0 0 6px;
 
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   line-height: 1.4;
   color: var(--muted);
 }
 
-.floor-modal > input,
-.floor-modal > select {
+.floor-modal>input,
+.floor-modal>select,
+.floor-grid2>div>input {
   display: block;
   width: 100%;
   min-width: 0;
@@ -422,19 +511,21 @@ button.floor-tbl {
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.floor-modal > input::placeholder {
+.floor-modal>input::placeholder,
+.floor-grid2>div>input::placeholder {
   color: var(--muted);
   opacity: 0.7;
 }
 
-.floor-modal > input:focus,
-.floor-modal > select:focus {
+.floor-modal>input:focus,
+.floor-modal>select:focus,
+.floor-grid2>div>input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
 
-.floor-modal > select {
+.floor-modal>select {
   appearance: none;
   padding-right: 34px;
   cursor: pointer;
@@ -444,22 +535,33 @@ button.floor-tbl {
   background-position: right 12px center;
 }
 
-.floor-modal > select option {
+.floor-modal>select option {
   background: var(--panel);
   color: var(--text);
 }
 
+/* Customer name + Mobile side by side */
+.floor-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 12px;
+}
+
+.floor-grid2>div {
+  min-width: 0;
+}
+
 /* ========================================
-   INFORMATION / RESERVATION DETAILS
+   INFORMATION TEXT
 ======================================== */
-.floor-modal > p {
+.floor-modal>p {
   margin: 0 0 12px;
   font-size: 0.85rem;
   line-height: 1.5;
   color: var(--muted);
 }
 
-.floor-modal > p strong {
+.floor-modal>p strong {
   color: var(--text);
   font-weight: 700;
 }
@@ -510,6 +612,11 @@ button.floor-tbl {
     padding: 14px 16px 12px;
   }
 
+  /* stack name + mobile on very small screens */
+  .floor-grid2 {
+    grid-template-columns: 1fr;
+  }
+
   .floor-modal-actions {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
@@ -523,26 +630,55 @@ button.floor-tbl {
 }
 
 @keyframes modal-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ---------- Small screens ---------- */
 @media (max-width: 560px) {
-  .ph { padding: 10px 12px; }
-  .ph .row.right { justify-content: flex-start; }
-  .legend { padding: 10px 12px; }
-  .pad { padding: 12px; }
-  .tgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .floor-modal-actions .btn,
-  .floor-modal-footer .btn { flex: 1; padding-block: 10px; }
+  .floor-ph {
+    padding: 10px 12px;
+  }
+
+  .floor-ph .floor-row.floor-right {
+    justify-content: flex-start;
+  }
+
+  .floor-legend {
+    padding: 10px 12px;
+  }
+
+  .floor-pad {
+    padding: 12px;
+  }
+
+  .floor-tgrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tbl, .chip, .btn, .floor-modal-close { transition: none; }
-  .tbl:hover { transform: none; }
-  .tbl[data-s="ready"] { animation: none; }
-  .floor-modal-backdrop { animation: none; }
+
+  .floor-tbl,
+  .floor-chip,
+  .btn,
+  .floor-modal-close {
+    transition: none;
+  }
+
+  .floor-tbl:hover {
+    transform: none;
+  }
+
+  .floor-modal-backdrop {
+    animation: none;
+  }
 }
 
 /* =========================================================
@@ -564,8 +700,11 @@ button.floor-tbl {
   overflow: hidden;
 }
 
-.floor-pnl.floor-act .floor-ph { width: 100%; }
-.flor-pnl.floor-act .floor-row {
+.floor-pnl.floor-act .floor-ph {
+  width: 100%;
+}
+
+.floor-pnl.floor-act .floor-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -573,7 +712,10 @@ button.floor-tbl {
   width: auto;
   gap: 8px;
 }
-.floor-pnl.floor-act .floor-row.floor-right { justify-content: flex-end; }
+
+.floor-pnl.floor-act .floor-row.floor-right {
+  justify-content: flex-end;
+}
 
 .floor-pnl.floor-act .floor-chip,
 .floor-pnl.floor-act .btn {
@@ -583,9 +725,17 @@ button.floor-tbl {
   white-space: nowrap;
 }
 
-.floor-pnl.floor-act .floor-tgrid { width: 100%; }
-.floor-pnl.floor-act .floor-tgrid > .floor-tbl { width: auto; min-width: 0; }
+.floor-pnl.floor-act .floor-tgrid {
+  width: 100%;
+}
+
+.floor-pnl.floor-act .floor-tgrid>.floor-tbl {
+  width: auto;
+  min-width: 0;
+}
 
 @media (max-width: 560px) {
-  .floor-pnl.floor-act .floor-row.floor-right { justify-content: flex-start; }
+  .floor-pnl.floor-act .floor-row.floor-right {
+    justify-content: flex-start;
+  }
 }

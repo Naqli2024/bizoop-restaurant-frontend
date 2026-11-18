@@ -1,0 +1,715 @@
+/* ==========================================================
+   BIZOOP HERO – full stylesheet (layout + theme + animation)
+   ========================================================== */
+
+/* ---------- Tokens: change these to re-theme ---------- */
+.bz-hero {
+    --bz-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --bz-font: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* ---------- Layout ---------- */
+.bz-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 64px;
+    min-height: 100%;
+    padding: 60px 6vw;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.bz-hero *,
+.bz-hero *::before,
+.bz-hero *::after {
+    box-sizing: border-box;
+}
+
+/* ---------- Copy column ---------- */
+.bz-hero-copy {
+    max-width: 560px;
+}
+
+.bz-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+}
+
+.bz-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+}
+
+.bz-hero h1 {
+    margin: 24px 0 18px;
+    font-size: clamp(2.4rem, 5.2vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+}
+
+.bz-hero h1 span {
+    color: var(--accent);
+}
+
+.bz-hero-description {
+    margin: 0 0 32px;
+    max-width: 480px;
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: var(--muted);
+}
+
+.bz-hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.bz-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 26px;
+    border: 0;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    font: 700 1rem var(--bz-font);
+    cursor: pointer;
+   }
+
+.bz-primary-btn:hover {
+    background: var(--blue);
+}
+
+.bz-primary-btn:focus-visible,
+.bz-secondary-link:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+.bz-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.bz-secondary-link:hover {
+    color: var(--accent);
+}
+
+.bz-hero-note {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    font-size: 0.92rem;
+    color: var(--muted);
+}
+
+.bz-hero-note>span {
+    display: grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(22, 163, 74, 0.14);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ---------- Visual column ---------- */
+.bz-hero-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 520px;
+}
+
+.bz-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1.5px dashed rgba(20, 32, 28, 0.16);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.bz-orbit-one {
+    width: 440px;
+    height: 440px;
+    margin: -220px 0 0 -220px;
+}
+
+.bz-orbit-two {
+    width: 580px;
+    height: 580px;
+    margin: -290px 0 0 -290px;
+    border-color: rgba(232, 89, 12, 0.22);
+}
+
+.bz-dashboard-card {
+    position: relative;
+    z-index: 2;
+    width: min(100%, 400px);
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    background: var(--surface);
+    box-shadow: 0 30px 60px -24px rgba(20, 32, 28, 0.28);
+}
+
+.bz-preview-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.bz-preview-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+}
+
+.bz-preview-top h3 {
+    margin: 4px 0 0;
+    font-size: 1.1rem;
+}
+
+.bz-preview-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(22, 163, 74, 0.1);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.bz-preview-status i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+}
+
+.bz-preview-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.bz-preview-metrics>div {
+    padding: 14px;
+    border-radius: 14px;
+    background: var(--bg);
+}
+
+.bz-preview-metrics span {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.bz-preview-metrics strong {
+    display: block;
+    margin: 4px 0 2px;
+    font-size: 1.45rem;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.bz-preview-metrics small {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.bz-preview-section-title {
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.bz-preview-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin: 0 -10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.bz-preview-row:hover {
+    background: var(--bg);
+}
+
+.bz-preview-row>span:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+}
+
+.bz-preview-row b {
+    display: block;
+    font-size: 0.92rem;
+}
+
+.bz-preview-row small {
+    display: block;
+    font-size: 11.5px;
+    color: var(--muted);
+}
+
+.bz-preview-icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-weight: 800;
+}
+
+.bz-preview-icon.amber {
+    background: rgba(217, 119, 6, 0.14);
+    color: var(--a2);
+}
+
+.bz-preview-icon.blue {
+    background: rgba(37, 99, 235, 0.12);
+    color: var(--blue);
+}
+
+.bz-preview-icon.green {
+    background: rgba(22, 163, 74, 0.13);
+    color: var(--green);
+}
+
+.bz-preview-arrow {
+    color: var(--muted);
+}
+
+.bz-preview-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.bz-preview-bars {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 26px;
+}
+
+.bz-preview-bars i {
+    width: 6px;
+    border-radius: 3px;
+    background: var(--accent);
+}
+
+.bz-preview-bars i:nth-child(1) {
+    height: 45%;
+}
+
+.bz-preview-bars i:nth-child(2) {
+    height: 70%;
+}
+
+.bz-preview-bars i:nth-child(3) {
+    height: 55%;
+}
+
+.bz-preview-bars i:nth-child(4) {
+    height: 90%;
+}
+
+.bz-preview-bars i:nth-child(5) {
+    height: 75%;
+}
+
+.bz-float-card {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--surface);
+    box-shadow: 0 18px 36px -16px rgba(20, 32, 28, 0.3);
+}
+
+.bz-float-card b {
+    display: block;
+    font-size: 0.88rem;
+}
+
+.bz-float-card small {
+    display: block;
+    font-size: 11.5px;
+    color: var(--muted);
+}
+
+.bz-float-top {
+    top: 6%;
+    left: -2%;
+}
+
+.bz-float-bottom {
+    bottom: 6%;
+    right: -2%;
+}
+
+.bz-float-symbol {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 800;
+}
+
+.bz-float-symbol.bz-float-green {
+    background: rgba(22, 163, 74, 0.14);
+    color: var(--green);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+    .bz-hero {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        min-height: auto;
+        padding: 56px 24px;
+    }
+
+    .bz-hero-copy {
+        max-width: none;
+    }
+
+    .bz-hero-visual {
+        min-height: 460px;
+    }
+
+    .bz-orbit-two {
+        display: none;
+    }
+
+    .bz-float-top {
+        left: 0;
+    }
+
+    .bz-float-bottom {
+        right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .bz-orbit-one {
+        width: 340px;
+        height: 340px;
+        margin: -170px 0 0 -170px;
+    }
+
+    .bz-float-card {
+        padding: 10px 12px;
+    }
+}
+
+/* ==========================================================
+   ANIMATIONS
+   Uses individual translate / rotate / scale properties so
+   they never clash with any `transform` you add yourself.
+   ========================================================== */
+
+/* 1. Page-load sequence (copy column, staggered) */
+.bz-in {
+    opacity: 0;
+    translate: 0 22px;
+    animation: bz-rise 0.8s var(--bz-ease) forwards;
+    animation-delay: calc(var(--i, 0) * 110ms + 100ms);
+}
+
+@keyframes bz-rise {
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+/* 2. Dashboard card enters, rows follow */
+.bz-dashboard-card {
+    opacity: 0;
+    translate: 40px 24px;
+    scale: 0.96;
+    animation: bz-card-in 1s var(--bz-ease) 0.35s forwards;
+}
+
+@keyframes bz-card-in {
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+    }
+}
+
+.bz-row-in {
+    opacity: 0;
+    translate: 16px 0;
+    animation: bz-row 0.6s var(--bz-ease) forwards;
+    animation-delay: calc(0.95s + var(--r, 0) * 120ms);
+}
+
+@keyframes bz-row {
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+/* 3. Ambient motion */
+.bz-orbit-one {
+    animation: bz-spin 38s linear infinite;
+}
+
+.bz-orbit-two {
+    animation: bz-spin 56s linear infinite reverse;
+}
+
+@keyframes bz-spin {
+    to {
+        rotate: 360deg;
+    }
+}
+
+.bz-float-card {
+    opacity: 0;
+    animation: bz-fade 0.7s ease forwards, bz-float 6s ease-in-out infinite;
+}
+
+.bz-float-top {
+    animation-delay: 1.3s, 2s;
+}
+
+.bz-float-bottom {
+    animation-delay: 1.5s, 3.2s;
+}
+
+@keyframes bz-fade {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bz-float {
+
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -10px;
+    }
+}
+
+/* 4. Live indicators */
+.bz-live-dot,
+.bz-preview-status i {
+    animation: bz-pulse 2s ease-out infinite;
+}
+
+@keyframes bz-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.55);
+    }
+
+    70% {
+        box-shadow: 0 0 0 9px rgba(22, 163, 74, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+    }
+}
+
+/* Mini bars grow from the baseline, then breathe */
+.bz-preview-bars i {
+    transform-origin: bottom;
+    scale: 1 0.15;
+    animation: bz-bar-grow 0.7s var(--bz-ease) forwards, bz-bar-breathe 3s ease-in-out infinite;
+}
+
+.bz-preview-bars i:nth-child(1) {
+    animation-delay: 1.4s, 2.2s;
+}
+
+.bz-preview-bars i:nth-child(2) {
+    animation-delay: 1.5s, 2.5s;
+}
+
+.bz-preview-bars i:nth-child(3) {
+    animation-delay: 1.6s, 2.8s;
+}
+
+.bz-preview-bars i:nth-child(4) {
+    animation-delay: 1.7s, 3.1s;
+}
+
+.bz-preview-bars i:nth-child(5) {
+    animation-delay: 1.8s, 3.4s;
+}
+
+@keyframes bz-bar-grow {
+    to {
+        scale: 1 1;
+    }
+}
+
+@keyframes bz-bar-breathe {
+
+    0%,
+    100% {
+        scale: 1 1;
+    }
+
+    50% {
+        scale: 1 0.7;
+    }
+}
+
+/* 5. Headline highlight sweeps once */
+.bz-hero h1 .bz-shimmer {
+    background-image: linear-gradient(100deg, currentColor 40%, rgba(255, 255, 255, 0.95) 50%, currentColor 60%);
+    background-size: 250% 100%;
+    background-position: 120% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: bz-sweep 1.8s ease 1.2s 1 forwards;
+}
+
+@keyframes bz-sweep {
+    to {
+        background-position: -20% 0;
+    }
+}
+
+/* 6. Interaction feedback */
+.bz-primary-btn {
+    transition: translate 0.25s var(--bz-ease), background-color 0.2s ease;
+}
+
+.bz-primary-btn:hover {
+    translate: 0 -2px;
+}
+
+.bz-primary-btn:active {
+    translate: 0 0;
+}
+
+.bz-btn-arrow {
+    display: inline-block;
+    transition: translate 0.25s var(--bz-ease);
+}
+
+.bz-primary-btn:hover .bz-btn-arrow {
+    translate: 4px 0;
+}
+
+.bz-bounce-arrow {
+    display: inline-block;
+}
+
+.bz-secondary-link:hover .bz-bounce-arrow {
+    animation: bz-bounce 0.8s ease infinite;
+}
+
+@keyframes bz-bounce {
+
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 4px;
+    }
+}
+
+.bz-preview-row {
+    transition: background-color 0.2s ease;
+}
+
+.bz-preview-arrow {
+    display: inline-block;
+    transition: translate 0.25s var(--bz-ease);
+}
+
+.bz-preview-row:hover .bz-preview-arrow {
+    translate: 3px -3px;
+}
+
+/* 7. Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .bz-in,
+    .bz-row-in,
+    .bz-dashboard-card,
+    .bz-float-card,
+    .bz-preview-bars i {
+        animation: none !important;
+        opacity: 1;
+        translate: none;
+        scale: none;
+    }
+
+    .bz-hero h1 .bz-shimmer {
+        animation: none !important;
+        background: none;
+        -webkit-text-fill-color: currentColor;
+    }
+
+    .bz-orbit,
+    .bz-live-dot,
+    .bz-preview-status i {
+        animation: none !important;
+    }
+}

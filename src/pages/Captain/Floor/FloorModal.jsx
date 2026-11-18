@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const FloorModal = ({
   modalType,
   selectedTable,
@@ -9,30 +11,41 @@ const FloorModal = ({
   setMobile,
   channel,
   setChannel,
+  submitting = false,
   onClose,
   onCreateTable,
   onCreateTakeaway,
-  onConfirmReservation,
-  captain,
-  setCaptain
 }) => {
+  const [captain, setCaptain] = useState("");
+  const [tableCustomerName, setTableCustomerName] = useState("");
+
+  // Clear the table-order fields whenever the modal opens or closes
+  useEffect(() => {
+    setCaptain("");
+    setTableCustomerName("");
+  }, [modalType, selectedTable?.id]);
+
   if (!modalType) return null;
 
+  const isTable = modalType === "table";
+  const isTakeaway = modalType === "take";
+  const isDelivery = modalType === "del";
+
+  const mobileInvalid = mobile.length > 0 && mobile.length !== 10;
+
   function handleConfirm() {
-    if (modalType === "table") {
-      onCreateTable();
-    } else if (modalType === "reservation") {
-      onConfirmReservation();
+    if (isTable) {
+      onCreateTable({
+        captain: captain.trim(),
+        customerName: tableCustomerName.trim(),
+      });
     } else {
       onCreateTakeaway();
     }
   }
 
   return (
-    <div
-      className="floor-modal-backdrop"
-      onClick={onClose}
-    >
+    <div className="floor-modal-backdrop" onClick={onClose}>
       <div
         className="floor-modal"
         onClick={(event) => event.stopPropagation()}
@@ -40,13 +53,11 @@ const FloorModal = ({
         {/* Modal Header */}
         <div className="floor-modal-header">
           <h3>
-            {modalType === "table"
-              ? `Open table ${selectedTable?.id}`
-              : modalType === "reservation"
-                ? `Reserved — ${selectedTable?.id}`
-                : modalType === "take"
-                  ? "New takeaway order"
-                  : "New delivery order"}
+            {isTable
+              ? `Open table ${selectedTable?.name || ""}`
+              : isTakeaway
+              ? "New takeaway order"
+              : "New delivery order"}
           </h3>
 
           <button
@@ -59,79 +70,77 @@ const FloorModal = ({
           </button>
         </div>
 
-        {modalType === "table" && (
+        {isTable && (
           <>
-            <label>Guests (pax)</label>
+            <div className="floor-grid2">
+              <div>
+                <label>Guests (pax)</label>
+                <input
+                  type="number"
+                  min="1"
+                  max={selectedTable?.availableSeats || 1}
+                  value={guests}
+                  onChange={(event) => setGuests(event.target.value)}
+                />
+              </div>
 
-            <input
-              type="number"
-              min="1"
-              max={(selectedTable?.seats || 2) + 4}
-              value={guests}
-              onChange={(event) =>
-                setGuests(event.target.value)
-              }
-            />
-            <label>Captain Name</label>
-
-            <select
-              value={captain}
-              onChange={(event) => setCaptain(event.target.value)}
-            >
-              <option value="Ravi K.">Ravi K.</option>
-              <option value="Priya S.">Priya S.</option>
-              <option value="Arun M.">Arun M.</option>
-            </select>
+              <div>
+                <label>Captain</label>
+                <input
+                  value={captain}
+                  onChange={(event) => setCaptain(event.target.value)}
+                  placeholder="Captain name"
+                />
+              </div>
+               <div style={{ marginTop: 10 }}>
+              <label>Customer name</label>
+              <input
+                value={tableCustomerName}
+                onChange={(event) => setTableCustomerName(event.target.value)}
+                placeholder="Optional"
+              />
+            </div>
+            </div>
             <p>
-              {selectedTable?.sec} · {selectedTable?.seats} seats
+              {selectedTable?.floorName} · {selectedTable?.availableSeats} of{" "}
+              {selectedTable?.seats} seats available
             </p>
           </>
         )}
 
-        {modalType === "reservation" && (
+        {(isTakeaway || isDelivery) && (
           <>
-            <p>
-              Reserved for{" "}
-              <strong> {selectedTable?.reservation?.n}{" "} </strong>
-              {selectedTable?.reservation?.t} ·{" "}
-              {selectedTable?.reservation?.p} guests
-            </p>
-          </>
-        )}
+            <div className="floor-grid2">
+              <div>
+                <label>Customer name</label>
+                <input
+                  value={customerName}
+                  onChange={(event) => setCustomerName(event.target.value)}
+                  placeholder="Optional"
+                />
+              </div>
 
-        {(modalType === "take" || modalType === "del") && (
-          <>
-            <label>Customer name</label>
+              <div>
+                <label>Mobile (WhatsApp)</label>
+                <input
+                  value={mobile}
+                  onChange={(event) =>
+                    setMobile(event.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={10}
+                  inputMode="numeric"
+                  placeholder="10-digit number"
+                />
+              </div>
+            </div>
 
-            <input
-              value={customerName}
-              onChange={(event) =>
-                setCustomerName(event.target.value)
-              }
-              placeholder="Optional"
-            />
-
-            <label>Mobile</label>
-
-            <input
-              value={mobile}
-              onChange={(event) =>
-                setMobile(event.target.value.replace(/\D/g, ""))
-              }
-              maxLength={10}
-              inputMode="numeric"
-              placeholder="10-digit number"
-            />
-
-            {modalType === "del" && (
+            {isDelivery && (
               <>
                 <label>Channel</label>
 
                 <select
                   value={channel}
-                  onChange={(event) =>
-                    setChannel(event.target.value)
-                  }
+                  onChange={(event) => setChannel(event.target.value)}
                 >
                   <option>Swiggy</option>
                   <option>Zomato</option>
@@ -148,20 +157,22 @@ const FloorModal = ({
             type="button"
             className="btn btn-sm"
             onClick={onClose}
+            disabled={submitting}
           >
-            {modalType === "reservation" ? "Keep Reserved" : "Cancel"}
+            Cancel
           </button>
 
           <button
             type="button"
             className="btn btn-p"
+            disabled={submitting || (!isTable && mobileInvalid)}
             onClick={handleConfirm}
           >
-            {modalType === "table"
+            {submitting
+              ? "Opening…"
+              : isTable
               ? "Open & take order"
-              : modalType === "reservation"
-                ? "Seat guests"
-                : "Create & add items"}
+              : "Create & add items"}
           </button>
         </div>
       </div>

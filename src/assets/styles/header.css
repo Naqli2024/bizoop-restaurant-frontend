@@ -1,30 +1,51 @@
+/* ========================================
+   BIZOOP HEADER - FIXED LAYOUT
+======================================== */
 
-/* Header */
 .topbar {
-  height: 48px;
-  min-height: 48px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+  height: 54px;
+  min-height: 54px;
+  padding: 0 14px;
+
   display: flex;
   align-items: center;
-  padding: 0 12px;
-  gap: 10px;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 100;
+  justify-content: space-between;
+  gap: 14px;
+
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+
   box-sizing: border-box;
+  z-index: 1000;
+  flex-shrink: 0;
 }
+
+/* ========================================
+   BRAND SECTION
+======================================== */
+
 .brand {
   display: flex;
   align-items: center;
   gap: 10px;
+
+  min-width: 0;
   flex-shrink: 0;
+
   cursor: pointer;
 }
+
 .brand-logo-wrap {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .client-logo-img {
@@ -36,11 +57,17 @@
 }
 
 .brand-name {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 900;
-  color: var(--text);
   letter-spacing: -0.5px;
+  line-height: 1;
+
+  color: var(--text);
   white-space: nowrap;
+}
+
+.brand-name span {
+  color: var(--text);
 }
 
 .top-sep {
@@ -50,39 +77,113 @@
   flex-shrink: 0;
 }
 
-/* Industry pill */
+/* ========================================
+   INDUSTRY PILL
+======================================== */
+
 .ind-pill {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
-  padding: 3px 10px;
-  border-radius: 100px;
+
+  padding: 4px 10px;
 
   background: var(--accent-dim);
   border: 1px solid var(--accent-glow);
+  border-radius: 100px;
 
+  color: var(--accent);
   font-size: 12px;
   font-weight: 700;
-  color: var(--accent);
   white-space: nowrap;
-  cursor: pointer;
+
+  flex-shrink: 0;
 }
 
-/* Date and time */
-.top-date {
+/* ========================================
+   LOCATION PILL
+======================================== */
+
+.loc-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 4px 10px;
+
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+
+  color: var(--muted);
   font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  flex-shrink: 0;
+}
+
+/* ========================================
+   LIVE STATUS DOT
+======================================== */
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+  background: var(--green);
+
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* ========================================
+   DATE AND TIME
+======================================== */
+
+.top-date {
   color: var(--muted);
   font-family: var(--mono);
+  font-size: 12px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
-/* Role navigation */
+/* ========================================
+   ROLE NAVIGATION
+======================================== */
+
 .vsw {
   display: flex;
   align-items: center;
-  gap: 4px;
-  min-width: 0;
+  justify-content: center;
+  gap: 3px;
+
+  padding: 3px;
   margin-left: auto;
+  margin-right: auto;
+
+  min-width: 0;
+  flex-shrink: 1;
+
+  border-radius: 100px;
+
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -92,24 +193,32 @@
 }
 
 .vsw-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
 
-  padding: 6px 9px;
-  border: 1px solid transparent;
-  border-radius: 20px;
+  padding: 7px 10px;
 
   background: transparent;
   color: var(--muted);
 
-  font-size: 12px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+
+  font-family: var(--font);
+  font-size: 11px;
   font-weight: 600;
+  line-height: 1;
   white-space: nowrap;
 
   cursor: pointer;
-  transition: all 0.15s ease;
+  flex-shrink: 0;
+
+  transition:
+    color 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .vsw-btn:hover {
@@ -125,64 +234,113 @@
 }
 
 .vsw-btn small {
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 1;
   opacity: 0.7;
 }
 
-/* Right section */
+/* ========================================
+   RIGHT SECTION
+======================================== */
+
 .topbar-right {
-  margin-left: 0;
   display: flex;
   align-items: center;
-  gap: 7px;
+  justify-content: flex-end;
+  gap: 8px;
+
+  margin-left: 0;
   flex-shrink: 0;
 }
-.action-btn{
+
+/* ========================================
+   ACTION CENTRE BUTTON
+======================================== */
+
+.action-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  padding: 7px 14px;
-  border: 1px solid var(--border2);
+  gap: 8px;
+
+  min-height: 32px;
+  padding: 6px 11px;
+
+  background: transparent;
   color: var(--text);
-  background:transparent;
-  font-size: 13px;
-  transition: all 0.12s;
-  font-family:var(--font);
-  gap: 10px;
+
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
-.tag{
+
+.action-btn:hover {
+  background: var(--panel);
+  border-color: var(--border2);
+}
+
+/* ========================================
+   ACTION COUNT BADGE
+======================================== */
+
+.tag {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+
+  min-width: 20px;
+  min-height: 19px;
+  padding: 2px 6px;
+
   border-radius: 999px;
-  padding: 2px 9px;
+
   font-size: 12px;
+  line-height: 1;
+  box-sizing: border-box;
 }
+
 .t-err {
-    background: rgba(239, 68, 68, .12);
-    color: #EF4444;
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
 }
 
-/* Theme button */
-.icon-btn {
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
+/* ========================================
+   THEME TOGGLE BUTTON
+======================================== */
 
-  border-radius: var(--r-sm);
-  border: 1px solid var(--border);
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+  padding: 0;
+
+  flex-shrink: 0;
 
   background: var(--panel);
   color: var(--muted);
 
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+
   cursor: pointer;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 15px;
-  transition: all 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
 }
 
 .icon-btn:hover {
@@ -190,21 +348,30 @@
   border-color: var(--border2);
 }
 
-/* User profile */
+/* ========================================
+   USER PROFILE
+======================================== */
+
 .user-chip {
   display: flex;
   align-items: center;
-  gap: 7px;
-  padding: 4px 10px;
+  justify-content: flex-start;
+  gap: 8px;
 
-  border-radius: var(--r-sm);
+  min-height: 36px;
+  padding: 4px 9px;
+
   background: var(--panel);
-  border: 1px solid var(--border);
   color: var(--text);
+
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
 
   cursor: pointer;
   text-align: left;
   flex-shrink: 0;
+
+  transition: border-color 0.15s ease;
 }
 
 .user-chip:hover {
@@ -212,112 +379,257 @@
 }
 
 .user-av {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-
-  border-radius: 50%;
-  background: var(--accent-dim);
-  color: var(--accent);
-
   display: flex;
   align-items: center;
   justify-content: center;
 
+  width: 26px;
+  height: 26px;
+
+  flex-shrink: 0;
+  border-radius: 50%;
+
+  background: var(--accent-dim);
+  color: var(--accent);
+
   font-size: 12px;
   font-weight: 700;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
 }
 
 .user-info .uname {
+  color: var(--text);
   font-size: 12px;
   font-weight: 700;
-  color: var(--text);
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
 .user-info .urole {
-  font-size: 12px;
   color: var(--muted);
-}
-
-/* Topbar */
-.topbar {
-  position: relative;
-}
-
-/* Role navigation container */
-.vsw {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: 100px;
-  padding: 3px;
-  margin: 0 auto;
-}
-
-/* Location indicator */
-.loc-pill {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 100px;
-  background: var(--panel);
-  border: 1px solid var(--border);
   font-size: 12px;
-  font-weight: 700;
-  color: var(--muted);
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
-/* Live status dot */
-.live-dot {
-  width: 6px;
-  height: 6px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
-  animation: pulse 2s infinite;
+/* ========================================
+   MAIN CONTENT OFFSET
+======================================== */
+
+/*
+  Apply this class to the main content wrapper.
+  It prevents content from hiding behind the
+  fixed header.
+*/
+
+.restaurant-main {
+  padding-top: 54px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-/* Pulse animation */
-@keyframes pulse {
-  70% {
-    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+/* ========================================
+   LAPTOP / SMALL DESKTOP
+======================================== */
+
+@media (max-width: 1200px) {
+  .topbar {
+    padding: 0 10px;
+    gap: 9px;
   }
 
-  100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  .brand {
+    gap: 7px;
+  }
+
+  .top-date,
+  .loc-pill
+   {
+    display: none;
+  }
+
+  .loc-pill {
+    padding: 4px 7px;
+  }
+
+  .vsw {
+    gap: 2px;
+  }
+
+  .vsw-btn {
+    padding: 7px 8px;
+    gap: 4px;
+  }
+
+  .topbar-right {
+    gap: 6px;
+  }
+
+  .action-btn {
+    padding: 6px 8px;
   }
 }
 
-@media (max-width: 1023px) {
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
   .topbar {
     height: auto;
+    min-height: 54px;
+
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+
     padding: 10px;
   }
-  
-  /* Make role nav take full width row if needed or scroll cleanly */
+
+  .brand {
+    order: 1;
+    flex: 1 1 auto;
+  }
+
+  .topbar-right {
+    order: 2;
+    margin-left: auto;
+  }
+
   .vsw {
     order: 3;
+
     width: 100%;
-    margin-top: 4px;
+    flex: 1 0 100%;
+
+    margin: 0;
     justify-content: flex-start;
+
+    box-sizing: border-box;
+  }
+
+  .vsw-btn {
+    padding: 8px 11px;
+  }
+
+  .restaurant-main {
+    padding-top: 104px;
   }
 }
 
-/* Mobile Breakpoint (Below 640px) */
+/* ========================================
+   MOBILE
+======================================== */
+
 @media (max-width: 639px) {
-  /* Hide less critical info on very small screens to save space */
-  .top-date, 
-  .top-sep, 
-  .ind-pill {
-    display: none; 
+  .topbar {
+    padding: 9px 10px;
+    gap: 9px;
   }
 
-  /* Simplify user chip layout (hide role text, keep avatar/name) */
+  .brand {
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 15px;
+  }
+
+  .top-sep,
+  .top-date {
+    display: none;
+  }
+
+  .topbar-right {
+    gap: 5px;
+  }
+
+  .action-btn {
+    min-height: 32px;
+    padding: 5px 7px;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-chip {
+    min-height: 32px;
+    padding: 3px 6px;
+    gap: 5px;
+  }
+
+  .user-av {
+    width: 25px;
+    height: 25px;
+  }
+
   .user-info .urole {
+    display: none;
+  }
+
+  .vsw {
+    gap: 3px;
+    padding: 3px;
+  }
+
+  .vsw-btn {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .restaurant-main {
+    padding-top: 102px;
+  }
+}
+
+/* ========================================
+   VERY SMALL MOBILE
+======================================== */
+
+@media (max-width: 380px) {
+  .topbar {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 14px;
+  }
+
+  .topbar-right {
+    gap: 4px;
+  }
+
+  .action-btn {
+    font-size: 0;
+    gap: 0;
+    padding: 5px 6px;
+  }
+
+  .action-btn .tag {
+    font-size: 10px;
+  }
+
+  .user-info {
+    display: none;
+  }
+
+  .vsw-btn {
+    padding: 8px;
+  }
+
+  .vsw-btn small {
     display: none;
   }
 }

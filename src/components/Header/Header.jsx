@@ -1,31 +1,58 @@
-
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Sun, Moon } from "lucide-react";
 
 import { ThemeContext } from "../../helpers/ThemeContext";
 import { SidebarConfig } from "../../helpers/SidebarConfig";
+import { getLoggedInUser } from "../../redux/Auth/AuthSlice";
 
 import "../../assets/styles/header.css";
 
+// Constants live outside the component so they aren't recreated on every render
+const ROUTES = {
+  ADMIN: "/admin/command",
+  CASHIER: "/cashier/sales-iq",
+  CAPTAIN: "/captain/floor",
+  KITCHEN: "/kot-display/display",
+  BACKOFFICE: "/back-office/overview",
+};
+
+const ROLE_CODES = {
+  admin: "ADMIN",
+  cashier: "CASHIER",
+  captain: "CAPTAIN",
+  "kot-display": "KITCHEN",
+  "back-office": "BACKOFFICE",
+};
+
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { user, restaurant } = useSelector((state) => state.authAdmin);
+ 
 
-  const currentDate = new Date();
+  // Live clock (the old code showed seconds but never updated)
+  const [now, setNow] = useState(new Date());
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
 
+
+  useEffect(() => {
+    dispatch(getLoggedInUser());
+   }, [dispatch]);
+
+  const loggedInRole = user?.role?.code?.toUpperCase();
   const currentRole = location.pathname.split("/")[1];
 
-  const activeRole =
-    SidebarConfig.find(
-      (role) => role.path.split("/").filter(Boolean)[0] === currentRole
-    ) || SidebarConfig[0];
-
-  // Navigate to the selected role's base path
-  const handleRoleNavigation = (role) => {
-    navigate(role.path);
+  const handleRoleNavigation = () => {
+    const targetRoute = ROUTES[loggedInRole];
+    if (targetRoute) navigate(targetRoute);
   };
 
   return (
@@ -33,13 +60,13 @@ function Header() {
       {/* Brand and location */}
       <div
         className="brand"
-        onClick={() => navigate(activeRole.path)}
+        onClick={handleRoleNavigation}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            navigate(activeRole.path);
+            handleRoleNavigation();
           }
         }}
       >
@@ -55,46 +82,53 @@ function Header() {
 
         <div className="loc-pill">
           <span className="live-dot" />
-          Spice Route · Anna Nagar
+          {restaurant?.restaurantName || "—"}
         </div>
 
         <span className="top-date">
-          {currentDate.toLocaleDateString("en-IN", {
+          {now.toLocaleDateString("en-IN", {
             weekday: "short",
             day: "2-digit",
             month: "short",
           })}
           {" · "}
-          {currentDate.toLocaleTimeString("en-IN", {
+          {now.toLocaleTimeString("en-IN", {
             hour: "2-digit",
             minute: "2-digit",
             second: "2-digit",
           })}
         </span>
       </div>
-
+     
       {/* Role navigation */}
       <nav className="vsw" aria-label="Role navigation">
-        {SidebarConfig.map((role) => {
-          const RoleIcon = role.icon;
-          const isActive = activeRole.path === role.path;
+        {SidebarConfig
+          .filter((role) => {
+            const rolePath = role.path.split("/").filter(Boolean)[0];
+            const roleCode = ROLE_CODES[rolePath];
 
-          return (
-            <button
-              key={role.keyNumber}
-              type="button"
-              className={`vsw-btn ${isActive ? "active" : ""}`}
-              onClick={() => handleRoleNavigation(role)}
-              aria-current={isActive ? "page" : undefined}
-            >
-              {RoleIcon && <RoleIcon size={15} />}
+            return roleCode === loggedInRole;
+          })
+          .map((role) => {
+            const RoleIcon = role.icon;
+            const rolePath = role.path.split("/").filter(Boolean)[0];
+            const roleCode = ROLE_CODES[rolePath];
 
-              <span>{role.name}</span>
+            const isActive = currentRole === rolePath;
 
-              <small>{role.keyNumber}</small>
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={role.id}
+                type="button"
+                className={`vsw-btn ${isActive ? "active" : ""}`}
+                onClick={() => navigate(ROUTES[roleCode])}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {RoleIcon && <RoleIcon size={15} />}
+                <span>{role.name}</span>
+                </button>
+            );
+          })}
       </nav>
 
       {/* Theme and user profile */}
@@ -103,6 +137,7 @@ function Header() {
           🔴 ACTION CENTRE
           <span className="tag t-err">8</span>
         </button>
+
         <button
           type="button"
           className="icon-btn"
@@ -116,14 +151,16 @@ function Header() {
         <button
           type="button"
           className="user-chip"
-          onClick={() => navigate(`${activeRole.path}/profile`)}
-          title="Open profile"
+          onClick={handleRoleNavigation}
+          title="Open role home"
         >
-          <div className="user-av">RK</div>
+          <div className="user-av">
+            {user?.username?.charAt(0)?.toUpperCase() || "?"}
+          </div>
 
           <div className="user-info">
-            <div className="uname">Ravi K.</div>
-            <div className="urole">{activeRole.name}</div>
+            <div className="uname">{user?.role?.code}</div>
+            <div className="urole">{user?.role?.name}</div>
           </div>
         </button>
       </div>

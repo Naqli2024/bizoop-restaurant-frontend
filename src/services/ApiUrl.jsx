@@ -1,0 +1,1 @@
+export const apiUrl="https://restaurant-backend-yppc.onrender.com/api"

@@ -1,0 +1,136 @@
+.bz-section {
+  padding: 60px clamp(20px, 8vw, 90px);
+  max-width: 1500px;
+  margin: auto;
+}
+
+.bz-section-heading {
+  max-width: 660px;
+  margin-bottom: 32px;
+}
+
+.bz-section-kicker {
+  color:var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.bz-highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.bz-highlight {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 17px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--muted);
+  font-size: 13px;
+  animation: bz-rise .5s both;
+  animation-delay: var(--item-delay);
+}
+
+.bz-highlight-check {
+  color: var(--green);
+  display: grid;
+}
+
+.bz-section-heading h2 {
+  margin: 13px 0 10px;
+  font: 650 clamp(28px, 3.4vw, 40px)/1.15 "Outfit", sans-serif;
+  letter-spacing: -1.1px;
+  color: var(--text);
+}
+
+.bz-section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@keyframes bz-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ---------- Tablet ---------- */
+@media (max-width: 1024px) {
+  .bz-section {
+    padding: 50px 5vw;
+  }
+
+  .bz-highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .bz-section-heading {
+    max-width: 600px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .bz-section {
+    padding: 40px 20px;
+  }
+
+  .bz-section-heading {
+    margin-bottom: 24px;
+  }
+
+  .bz-section-kicker {
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .bz-section-heading h2 {
+    font-size: 28px;
+    letter-spacing: -0.7px;
+  }
+
+  .bz-section-heading p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .bz-highlight-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .bz-highlight {
+    padding: 14px;
+    gap: 10px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- Small Mobile ---------- */
+@media (max-width: 380px) {
+  .bz-section {
+    padding: 32px 15px;
+  }
+
+  .bz-section-heading h2 {
+    font-size: 25px;
+  }
+
+  .bz-highlight {
+    padding: 12px;
+    font-size: 11px;
+  }
+}

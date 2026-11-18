@@ -1,0 +1,370 @@
+/* Theme tokens: override these from your global theme if you already have them */
+.vch-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+}
+
+/* Header */
+.vch-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.vch-header__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 16px !important;
+    font-weight: 600;
+}
+
+.vch-header__badge {
+    padding: 6px 8px;
+    border-radius: 999px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Button */
+.vch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.15s;
+}
+
+.vch-btn:hover {
+    filter: brightness(1.1);
+}
+
+.vch-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.vch-btn__icon {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Body */
+.vch-body {
+    flex: 1;
+    overflow: auto;
+    padding: 14px 18px 24px;
+}
+
+/* Stat cards */
+.vch-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.vch-stat {
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+.vch-stat__label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.vch-stat__value {
+    margin-top: 6px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.vch-stat--green .vch-stat__value {
+    color: var(--green);
+}
+
+.vch-stat--amber .vch-stat__value {
+    color: var(--a2);
+}
+
+/* Table */
+.vch-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--panel);
+}
+
+.vch-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.vch-table th,
+.vch-table td {
+    padding: 12px 14px;
+    text-align: left;
+}
+
+.vch-table thead tr {
+    background: var(--elevated);
+    border-bottom: 1px solid var(--border);
+}
+
+.vch-table th {
+    color: var(--muted);
+    font-weight: 600;
+    background: var(--elevated);
+}
+
+.vch-table tbody tr+tr {
+    border-top: 1px solid var(--border);
+}
+
+.vch-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.vch-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.vch-table__right {
+    text-align: right !important;
+}
+
+.vch-table__amount {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Type chips */
+.vch-chip {
+    display: inline-block;
+    padding: 6px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.vch-chip--payment {
+    background: rgba(249, 115, 22, 0.15);
+    color: var(--a2);
+}
+
+.vch-chip--salary {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--green);
+}
+
+/* Small screens */
+@media (max-width: 720px) {
+
+    .vch-header,
+    .vch-body {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .vch-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Expense modal — theme tokens fall back to the dark palette */
+.exm-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+}
+
+.exm-box {
+    width: 100%;
+    max-width: 480px;
+    max-height: calc(100vh - 32px);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--panel);
+    color: var(--text);
+    font-size: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    animation: exm-pop 0.14s ease-out;
+}
+
+@keyframes exm-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .exm-box {
+        animation: none;
+    }
+}
+
+/* Header */
+.exm-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 22px;
+    padding: 20px 0 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.exm-head__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.exm-close {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.exm-close:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Body */
+.exm-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px 22px;
+    overflow-y: auto;
+}
+
+.exm-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.exm-field__label {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.exm-control {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background:var(--bg);
+    color: var(--text);
+    font: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.exm-control::placeholder {
+    color: var(--muted);
+}
+
+.exm-control:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.2);
+}
+
+.exm-error {
+    margin: 0;
+    color: var(--red);
+    font-size: 12px;
+}
+
+/* Footer */
+.exm-foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin: 0 22px;
+    padding: 14px 0 20px;
+    border-top: 1px solid var(--border);
+}
+
+.exm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.15s, background 0.15s;
+}
+
+.exm-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.exm-btn:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+.exm-btn--primary {
+    border-color: transparent;
+    background: var(--accent);
+    color: #fff;
+}
+
+.exm-btn--primary:hover {
+    background: var(--accent);
+    filter: brightness(1.1);
+}

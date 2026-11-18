@@ -1,49 +1,116 @@
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import "../../../assets/styles/floor.css";
 
-import {
-  SECTIONS,
-  INITIAL_TABLES,
-  INITIAL_ORDERS,
-} from "../Floor/FloorData";
+import { getFloorsTables } from "../../../redux/Floors/FloorSlice";
 
 import { FloorHeader } from "./FloorHeader";
 import { FloorLegend } from "./FloorLegend";
 import { FloorTable } from "./FloorTable";
-import { FloorOrder } from "./FloorOrder";
 import { FloorModal } from "./FloorModal";
 
 const Floor = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const [tables, setTables] = useState(INITIAL_TABLES);
-  const [orders, setOrders] = useState(INITIAL_ORDERS);
+  const { floors = [], loading } = useSelector(
+    (state) => state.floors
+  );
 
   const [section, setSection] = useState("All");
   const [myTables, setMyTables] = useState(false);
-  const [currentCaptain, setCurrentCaptain] = useState("Ravi K.");
 
   const [modalType, setModalType] = useState("");
   const [selectedTable, setSelectedTable] = useState(null);
-  const [guests, setGuests] = useState(2);
+  const [guests, setGuests] = useState(1);
 
   const [customerName, setCustomerName] = useState("");
   const [mobile, setMobile] = useState("");
   const [channel, setChannel] = useState("Swiggy");
 
-  const [nextOrderNumber, setNextOrderNumber] = useState(7);
-  const [takeawayNumber, setTakeawayNumber] = useState(2);
-  const [deliveryNumber, setDeliveryNumber] = useState(2);
+  /* ====================== GET FLOORS ====================== */
 
-  function getStatus(table) {
-    const order = table.order ? orders[table.order] : null;
-    if (order) return order.status;
-    return table.res ? "res" : "free";
-  }
+  useEffect(() => {
+    dispatch(getFloorsTables());
+  }, [dispatch]);
+
+  /* ====================== NORMALIZE FLOORS ====================== */
+
+  const normalizedFloors = useMemo(
+    () =>
+      [...floors]
+        .sort(
+          (a, b) =>
+            (a.displayOrder ?? 0) - (b.displayOrder ?? 0)
+        )
+        .map((floor) => ({
+          id: floor._id,
+          floorId: floor._id,
+          name: floor.floorName,
+          tables: [...(floor.tables || [])]
+            .sort(
+              (a, b) =>
+                (a.displayOrder ?? 0) - (b.displayOrder ?? 0)
+            )
+            .map((table) => ({
+              id: table._id,
+              tableId: table._id,
+              tableName: table.tableName,
+              name: table.tableName,
+
+              floorId: floor._id,
+              floorName: floor.floorName,
+
+              seats: table.seatingCapacity,
+              occupiedSeats: table.occupiedSeats,
+              availableSeats: table.availableSeats,
+              occupancyStatus: table.occupancyStatus,
+
+              orders: (table.currentOrders || []).map((order) => ({
+                id: order._id,
+                tableId: order.tableId,
+                pax: order.numberOfGuests,
+                status: order.orderStatus,
+                paymentStatus: order.paymentStatus,
+                cust: {
+                  name: order.customerName,
+                },
+                items: order.items || [],
+                total: order.totalAmount,
+                created: order.createdAt
+                  ? new Date(order.createdAt).getTime()
+                  : null,
+              })),
+            })),
+        })),
+    [floors]
+  );
+
+  /* ====================== FLOOR SECTIONS ====================== */
+
+  const sections = useMemo(
+    () => [
+      "All",
+      ...normalizedFloors.map((floor) => floor.name),
+    ],
+    [normalizedFloors]
+  );
+
+  const allTables = useMemo(
+    () => normalizedFloors.flatMap((floor) => floor.tables),
+    [normalizedFloors]
+  );
+
+  const getStatus = (table) => table.occupancyStatus;
+
+  /* ====================== HELPERS ====================== */
 
   function getMinutes(created) {
+    if (!created) return null;
+
     return Math.max(
       0,
       Math.floor((Date.now() - created) / 60000)
@@ -51,278 +118,202 @@ const Floor = () => {
   }
 
   function getTotal(order) {
+    if (order?.total != null) {
+      return Number(order.total) || 0;
+    }
+
     return (order?.items || []).reduce(
       (sum, item) =>
-        sum + (Number(item.price) || 0) * (Number(item.qty) || 0),
+        sum +
+        (Number(item.price) || 0) *
+          (Number(item.qty) || 0),
       0
     );
   }
 
-  const takeawayOrders = Object.values(orders).filter(
-    (order) => order.type === "take" || order.type === "del"
-  );
-
-  function openOrder(orderId) {
-    const selectedOrder = orders[orderId];
-
-    if (!selectedOrder) return;
-
-    navigate("/captain/order", {
-      state: {
-        order: selectedOrder,
-        orderId: selectedOrder.id,
-      },
-    });
-  }
+  /* ====================== OPEN TABLE ====================== */
 
   function openTable(table) {
     setSelectedTable(table);
-    setGuests(Math.min(2, table.seats));
-    setModalType("table");
-  }
 
-  function createTableOrder() {
-    if (!selectedTable) return;
-
-    const table = tables.find(
-      (item) => item.id === selectedTable.id
-    );
-
-    if (!table || table.order) return;
-
-    const id = `ORD-${String(nextOrderNumber).padStart(2, "0")}`;
-
-    const order = {
-      id,
-      label: table.id,
-      table: table.id,
-      section: table.sec,
-      type: "dine",
-      captain: currentCaptain,
-      pax: Math.max(1, Number(guests) || 2),
-      status: "ordering",
-      cust: {},
-      items: [],
-      created: Date.now(),
-    };
-
-    setOrders((previous) => ({
-      ...previous,
-      [id]: order,
-    }));
-
-    setTables((previous) =>
-      previous.map((item) =>
-        item.id === table.id
-          ? { ...item, order: id, res: null }
-          : item
+    setGuests(
+      Math.max(
+        1,
+        Math.min(
+          2,
+          Number(table.availableSeats) || 1
+        )
       )
     );
 
-    setNextOrderNumber((previous) => previous + 1);
+    setCustomerName("");
+    setModalType("table");
+  }
+
+  /* ====================== CLOSE MODAL ====================== */
+
+  function closeModal() {
     setModalType("");
     setSelectedTable(null);
+  }
 
-    // Pass the new order directly because React state updates asynchronously.
+  /* ====================== START NEW DINE-IN ORDER ====================== */
+
+  function startOrder({
+      customerName: tableCustomerName,
+  }) {
+    if (!selectedTable) {
+      toast.error("Please select a table.");
+      return;
+    }
+
+    const table = selectedTable;
+
+    if (!Number(guests) || Number(guests) < 1) {
+      toast.warning("Enter at least 1 guest.");
+      return;
+    }
+
+    if (Number(guests) > Number(table.availableSeats)) {
+      toast.warning(
+        `Only ${table.availableSeats} seats available.`
+      );
+      return;
+    }
+
+    if (!table.floorId || !table.tableId) {
+      toast.error("Floor ID or Table ID is missing.");
+     return;
+    }
+
+    const tableData = {
+      floorId: table.floorId,
+      tableId: table.tableId,
+      tableName: table.tableName,
+      floorName: table.floorName,
+    };
+
     navigate("/captain/order", {
       state: {
-        order,
-        orderId: id,
+        table: tableData,
+        guests: Number(guests),
+        customerName: tableCustomerName?.trim() || "Customer",
       },
     });
+
+    closeModal();
   }
 
-  function seatReservation(table) {
-    if (!table.res) return;
+  /* ====================== TAKEAWAY / DELIVERY ====================== */
 
-    setSelectedTable({
-      ...table,
-      reservation: { ...table.res },
-    });
-
-    setGuests(table.res.p);
-    setModalType("reservation");
-  }
-
-  function confirmReservation() {
-    if (!selectedTable) return;
-
-    const tableId = selectedTable.id;
-    const reservedGuests = selectedTable.reservation?.p || 2;
-
-    setTables((previous) =>
-      previous.map((table) =>
-        table.id === tableId
-          ? { ...table, res: null }
-          : table
-      )
-    );
-
-    setSelectedTable({
-      ...selectedTable,
-      res: null,
-      reservation: null,
-    });
-
-    setGuests(reservedGuests);
-    setModalType("table");
-  }
-
-  function createTakeaway(type) {
+  function openTakeaway(type) {
     setCustomerName("");
     setMobile("");
     setChannel("Swiggy");
     setModalType(type);
   }
 
-  function createTakeawayOrder() {
-    const type = modalType;
-
-    if (type !== "take" && type !== "del") return;
-
-    const id = `ORD-${String(nextOrderNumber).padStart(2, "0")}`;
-
-    const label =
-      type === "take"
-        ? `TA-${String(takeawayNumber).padStart(2, "0")}`
-        : `DEL-${String(deliveryNumber).padStart(2, "0")}`;
-
-    const order = {
-      id,
-      label,
-      table: null,
-      type,
-      platform: type === "del" ? channel : "",
-      captain: currentCaptain,
-      pax: 1,
-      status: "ordering",
-      cust: {
-        name: customerName.trim(),
-        mobile: mobile.trim(),
-      },
-      items: [],
-      created: Date.now(),
-    };
-
-    setOrders((previous) => ({
-      ...previous,
-      [id]: order,
-    }));
-
-    if (type === "take") {
-      setTakeawayNumber((previous) => previous + 1);
-    } else {
-      setDeliveryNumber((previous) => previous + 1);
+  function startTakeawayOrder() {
+    if (modalType !== "take" && modalType !== "del") {
+      return;
     }
-
-    setNextOrderNumber((previous) => previous + 1);
-    setModalType("");
 
     navigate("/captain/order", {
       state: {
-        order,
-        orderId: id,
+        type: modalType,
+        customer: {
+          name: customerName.trim(),
+          mobile: mobile.trim(),
+        },
+        customerName: customerName.trim(),
+        channel: modalType === "del" ? channel : null,
       },
     });
+
+    closeModal();
   }
 
-  const filteredSections =
-    section === "All" ? SECTIONS.slice(1) : [section];
+  /* ====================== VISIBLE FLOORS ====================== */
 
-  const occupied = tables.filter(
-    (table) => table.order && orders[table.order]
+  const visibleFloors =
+    section === "All"
+      ? normalizedFloors
+      : normalizedFloors.filter(
+          (floor) => floor.name === section
+        );
+
+  const occupied = allTables.filter(
+    (table) => table.orders.length > 0
   ).length;
 
+  /* ====================== RENDER ====================== */
+
   return (
-    <section className="floor-pnl floor-act" id="p-floor">
+    <section
+      className="floor-pnl floor-act"
+      id="p-floor"
+    >
       <FloorHeader
+        sections={sections}
         section={section}
         setSection={setSection}
+        occupied={occupied}
+        totalTables={allTables.length}
         myTables={myTables}
         setMyTables={setMyTables}
-        occupied={occupied}
-        totalTables={tables.length}
-        onTakeaway={() => createTakeaway("take")}
-        onDelivery={() => createTakeaway("del")}
+        onTakeaway={() => openTakeaway("take")}
+        onDelivery={() => openTakeaway("del")}
       />
 
       <FloorLegend
-        tables={tables}
+        tables={allTables}
         getStatus={getStatus}
       />
 
       <div className="floor-scroll floor-pad">
-        {filteredSections.map((sec, index) => {
-          const sectionTables = tables.filter(
-            (table) => table.sec === sec
-          );
+        {loading && floors.length === 0 && (
+          <div className="floor-sec-h">
+            Loading floors…
+          </div>
+        )}
+    
 
-          return (
-            <div key={sec}>
-              <div
-                className="floor-sec-h"
-                style={{ marginTop: index === 0 ? 0 : 14 }}
-              >
-                {sec}
-              </div>
+        {!loading  && floors.length === 0 && (
+          <div className="floor-sec-h">
+            No floors found.
+          </div>
+        )}
 
-              <div className="floor-tgrid">
-                {sectionTables.map((table) => {
-                  const status = getStatus(table);
-                  const order = table.order
-                    ? orders[table.order]
-                    : null;
-
-                  const dim =
-                    myTables &&
-                    order &&
-                    order.captain !== currentCaptain;
-
-                  return (
-                    <FloorTable
-                      key={table.id}
-                      table={table}
-                      order={order}
-                      status={status}
-                      dim={Boolean(dim)}
-                      getMinutes={getMinutes}
-                      getTotal={getTotal}
-                      onClick={() => {
-                        if (order) {
-                          openOrder(order.id);
-                        } else if (table.res) {
-                          seatReservation(table);
-                        } else {
-                          openTable(table);
-                        }
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-
-        {takeawayOrders.length > 0 && (
-          <>
-            <div className="floor-sec-h">
-              Takeaway &amp; delivery
+        {visibleFloors.map((floor, index) => (
+          <div key={floor.id}>
+            <div
+              className="floor-sec-h"
+              style={{
+                marginTop: index === 0 ? 0 : 14,
+              }}
+            >
+              {floor.name}
             </div>
 
             <div className="floor-tgrid">
-              {takeawayOrders.map((order) => (
-                <FloorOrder
-                  key={order.id}
-                  order={order}
-                  getMinutes={getMinutes}
-                  getTotal={getTotal}
-                  onClick={() => openOrder(order.id)}
-                />
-              ))}
+              {floor.tables.map((table) => {
+                const order = table.orders[0] || null;
+
+                return (
+                  <FloorTable
+                    key={table.tableId}
+                    table={table}
+                    order={order}
+                    status={getStatus(table)}
+                    getMinutes={getMinutes}
+                    getTotal={getTotal}
+                    onClick={() => openTable(table)}
+                  />
+                );
+              })}
             </div>
-          </>
-        )}
+          </div>
+        ))}
       </div>
 
       <FloorModal
@@ -336,15 +327,9 @@ const Floor = () => {
         setMobile={setMobile}
         channel={channel}
         setChannel={setChannel}
-        captain={currentCaptain}
-        setCaptain={setCurrentCaptain}
-        onClose={() => {
-          setModalType("");
-          setSelectedTable(null);
-        }}
-        onCreateTable={createTableOrder}
-        onCreateTakeaway={createTakeawayOrder}
-        onConfirmReservation={confirmReservation}
+        onClose={closeModal}
+        onCreateTable={startOrder}
+        onCreateTakeaway={startTakeawayOrder}
       />
     </section>
   );

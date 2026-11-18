@@ -6,6 +6,7 @@ import {
   X,
   PanelLeftClose,
   PanelLeft,
+  LogOut,
 } from "lucide-react";
 
 import { CashierSidebarData } from "../../helpers/CashierSidebarData";
@@ -15,19 +16,27 @@ import { BackOfficeSidebarData } from "../../helpers/BackOfficeSidebarData";
 
 import "../../assets/styles/sidebar.css";
 import { AdminSidebarData } from "../../helpers/AdminSidebarData";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { logout } from "../../redux/Auth/AuthSlice";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const RestaurantMain = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const dispatch = useDispatch();
+
+
   const currentRole = location.pathname.split("/")[1] || "cashier";
   const basePath = `/${currentRole}`;
   const sidebarConfig = {
     cashier: CashierSidebarData,
     captain: CaptainSidebarData,
     "kot-display": KotSidebarData,
-    "admin":AdminSidebarData,
+    "admin": AdminSidebarData,
     "back-office": BackOfficeSidebarData,
   };
 
@@ -59,11 +68,30 @@ const RestaurantMain = () => {
     }
   };
 
+  const handleLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = async () => {
+    try {
+      const result = await dispatch(logout()).unwrap();
+      setShowLogoutConfirm(false);
+      toast.success(result.message || "Logged out successfully");
+      navigate("/login", { replace: true });
+    } catch (error) {
+      setShowLogoutConfirm(false);
+      toast.error(error || "Logout failed");
+    }
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutConfirm(false);
+  };
+
   return (
     <div
-      className={`body-wrap ${
-        isMobileOpen ? "mobile-sidebar-open" : ""
-      }`}
+      className={`body-wrap ${isMobileOpen ? "mobile-sidebar-open" : ""
+        }`}
     >
       <button
         type="button"
@@ -84,14 +112,13 @@ const RestaurantMain = () => {
       )}
       <aside
         id="sb"
-        className={`sidebar-main ${
-          isCollapsed ? "collapsed" : ""
-        } ${isMobileOpen ? "mobile-open" : ""}`}
+        className={`sidebar-main ${isCollapsed ? "collapsed" : ""
+          } ${isMobileOpen ? "mobile-open" : ""}`}
       >
         <nav className="sidebar-nav" aria-label="Role navigation">
           {allSidebarGroups.map((group, index) => (
             <div className="sidebar-group" key={group.group || index}>
-                {(Array.isArray(group.items) ? group.items : []).map((item) => {
+              {(Array.isArray(group.items) ? group.items : []).map((item) => {
                 const cleanPath = String(item.path || "").replace(/^\/+/, "");
                 const itemPath = `${basePath}/${cleanPath}`;
                 const isActive =
@@ -101,9 +128,8 @@ const RestaurantMain = () => {
                   <button
                     key={item.path || item.label}
                     type="button"
-                    className={`sidebar-link sidebar-item ${
-                      isActive ? "active" : ""
-                    }`}
+                    className={`sidebar-link sidebar-item ${isActive ? "active" : ""
+                      }`}
                     onClick={() => handleNavigation(item.path)}
                     title={isCollapsed ? item.label : undefined}
                     aria-current={isActive ? "page" : undefined}
@@ -128,6 +154,17 @@ const RestaurantMain = () => {
         </nav>
         <button
           type="button"
+          className="sidebar-link sidebar-item sidebar-logout"
+          onClick={handleLogout}
+          title="Logout"
+        >
+          <span className="sidebar-icon sidebar-link-icon">
+            <LogOut size={15} />
+          </span>
+
+        </button>
+        <button
+          type="button"
           className="sidebar-desktop-collapse"
           onClick={() => setIsCollapsed((previous) => !previous)}
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -143,6 +180,15 @@ const RestaurantMain = () => {
       <main id="main" className="sidebar-main-bar">
         <Outlet />
       </main>
+      <ConfirmDialog
+        open={showLogoutConfirm}
+        title="Logout?"
+        message="Are you sure you want to logout from the BIZOOP Marketplace Admin panel?"
+        confirmLabel="Logout"
+        tone="danger"
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+      />
     </div>
   );
 };

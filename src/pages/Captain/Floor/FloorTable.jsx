@@ -1,19 +1,21 @@
-import { STATUS_LABELS } from "../Floor/FloorData";
-
 const FloorTable = ({
   table,
   order,
   status,
-  dim,
   getMinutes,
   getTotal,
   onClick,
 }) => {
-  const amount = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(getTotal(order));
+  const amount = order
+    ? new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(getTotal(order))
+    : null;
+
+  const minutes = order ? getMinutes(order.created) : null;
+  const extraOrders = table.orders.length - 1;
 
   return (
     <div
@@ -21,8 +23,7 @@ const FloorTable = ({
       data-s={status}
       role="button"
       tabIndex={0}
-      aria-label={`Table ${table.id}: ${STATUS_LABELS[status]}`}
-      style={{ opacity: dim ? 0.35 : 1 }}
+      aria-label={`Table ${table.name}: ${status}`}
       onClick={onClick}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -32,27 +33,33 @@ const FloorTable = ({
       }}
     >
       <div className="floor-tn">
-        {table.id}
-        <small>{table.seats} seats</small>
+        {table.name}
+        <small>
+          {table.occupiedSeats}/{table.seats} seats
+        </small>
       </div>
 
-      <div className="tt">
-        {STATUS_LABELS[status] || status}
-      </div>
+      <div className="floor-tt">{status}</div>
 
       <div className="floor-tm">
         {order ? (
           <>
-            {order.captain} · {order.pax} pax
-            <br />
-            {getMinutes(order.created)} min
-            {order.prio ? " · ⚡" : ""}
-          </>
-        ) : table.res ? (
-          <>
-            {table.res.n} · {table.res.p} pax
-            <br />
-            at {table.res.t}
+            {order.cust?.name || "—"} · {order.pax} pax
+            {minutes !== null && (
+              <>
+                <br />
+                {minutes} min
+              </>
+            )}
+            {order.status && (
+              <>
+                <br />
+                <span className="floor-os" data-os={order.status}>
+                  {order.status}
+                </span>
+              </>
+            )}
+            {extraOrders > 0 ? ` · +${extraOrders} more` : ""}
           </>
         ) : (
           "Tap to open table"

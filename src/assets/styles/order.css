@@ -5,24 +5,11 @@
 ===================================================== */
 
 #p-order {
-  --o-bg: var(--bg, #08090b);
-  --o-panel: var(--surface, #0c0d10);
-  --o-card: #050607;
-  --o-band: #101216;
-  --o-border: var(--border, #1d2025);
-  --o-text: var(--text, #ececec);
-  --o-muted: var(--muted, #8a9099);
-  --o-accent: var(--accent, #2f9bff);
-  --o-accent-dim: var(--accent-dim, rgba(47, 155, 255, 0.14));
-  --o-green: #22c55e;
-  --o-amber: #f59e0b;
-  --o-red: var(--red, #ef4444);
-
   width: 100%;
   height: 100%;           /* give the parent a fixed height (e.g. calc(100vh - header)) */
   min-width: 0;
   min-height: 0;
-  color: var(--o-text);
+  color: var(--text);
 }
 #p-order *,
 #p-order *::before,
@@ -47,8 +34,8 @@
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  background: var(--o-panel);
-  border: 1px solid var(--o-border);
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: 12px;
 }
 
@@ -62,21 +49,21 @@
   align-items: center;
   gap: 8px;
   padding: 12px;
-  border-bottom: 1px solid var(--o-border);
+  border-bottom: 1px solid var(--border);
 }
 #p-order .scan-inp {
   flex: 1;
   min-width: 0;
   height: 36px;
   padding: 0 14px;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 10px;
   outline: none;
-  background: var(--o-panel);
-  color: var(--o-text);
+  background: var(--bg);
+  color: var(--text);
   font-size: 13px;
 }
-#p-order .scan-inp:focus { border-color: var(--o-accent); }
+#p-order .scan-inp:focus { border-color: var(--accent); }
 
 #p-order .btn {
   flex: none;
@@ -85,21 +72,21 @@
   justify-content: center;
   gap: 6px;
   height: 36px;
-  padding: 0 14px;
-  border: 1px solid var(--o-border);
+  padding: 6 14px;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: var(--o-panel);
-  color: var(--o-muted);
+  background: transparent;
+  color: var(--muted);
   font-size: 12px;
   white-space: nowrap;
   cursor: pointer;
 }
-#p-order .btn:hover { color: var(--o-text); }
-#p-order .btn.selected { border-color: var(--o-accent); color: var(--o-accent); }
+#p-order .btn:hover { color: var(--text);border-color: var(--border2); }
+#p-order .btn.selected { border-color: var(--accent); color: var(--accent); }
 #p-order .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 #p-order .btn-p {
-  border-color: var(--o-accent);
-  background: var(--o-accent);
+  border-color: var(--accent);
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
 }
@@ -114,7 +101,7 @@
   display: flex;
   gap: 8px;
   padding: 10px 12px;
-  border-bottom: 1px solid var(--o-border);
+  border-bottom: 1px solid var(--border);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -122,20 +109,20 @@
 #p-order .cpill {
   flex: none;
   height: 28px;
-  padding: 0 13px;
-  border: 1px solid var(--o-border);
+  padding: 2px 13px;
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: var(--o-band);
-  color: var(--o-muted);
+  background: transparent;
+  color: var(--muted);
   font-size: 12px;
   cursor: pointer;
   transition: 0.2s;
 }
-#p-order .cpill:hover { color: var(--o-text); }
+#p-order .cpill:hover { color: var(--text); }
 #p-order .cpill.act {
-  border-color: var(--o-accent);
-  background: var(--o-accent-dim);
-  color: var(--o-accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
   font-weight: 700;
 }
 
@@ -162,16 +149,16 @@
   min-height: 118px;
   padding: 8px;
   overflow: hidden;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--o-card);
+  background: var(--panel);
   cursor: pointer;
   transition: border-color 0.2s;
 }
-#p-order .pc:hover { border-color: var(--o-accent); }
-#p-order .pc:focus-visible { outline: 2px solid var(--o-accent); outline-offset: 2px; }
+#p-order .pc:hover { border-color: var(--accent); }
+#p-order .pc:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 #p-order .pc.off { opacity: 0.5; cursor: not-allowed; }
-#p-order .pc.off:hover { border-color: var(--o-border); }
+#p-order .pc.off:hover { border-color: var(--border); }
 
 #p-order .pc-top {
   display: flex;
@@ -187,7 +174,7 @@
   place-items: center;
   width: 10px;
   height: 10px;
-  border: 1.5px solid var(--o-green);
+  border: 1.5px solid var(--green);
   border-radius: 2px;
 }
 #p-order .veg::after {
@@ -195,20 +182,20 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--o-green);
+  background: var(--green);
 }
-#p-order .veg.nv { border-color: var(--o-red); }
-#p-order .veg.nv::after { background: var(--o-red); }
+#p-order .veg.nv { border-color: var(--red); }
+#p-order .veg.nv::after { background: var(--red); }
 
 #p-order .pc-icon { margin-top: 6px; font-size: 22px; line-height: 1; }
 #p-order .pc-name { margin-top: 8px; font-size: 12px; font-weight: 700; line-height: 1.35; }
-#p-order .pc-price { margin-top: 3px; color: var(--o-accent); font-size: 13px; font-weight: 700; }
+#p-order .pc-price { margin-top: 3px; color: var(--accent); font-size: 13px; font-weight: 700; }
 #p-order .stn { margin-top: 4px; font-size: 11px; font-weight: 600; line-height: 1.3; }
 #p-order .left {
   align-self: flex-end;
   margin-top: 2px;
-  color: var(--o-amber);
-  font-size: 11px;
+  color: var(--a2);
+  font-size: 12px;
   font-weight: 700;
 }
 #p-order .off-t {
@@ -220,7 +207,7 @@
   background: rgba(0, 0, 0, 0.85);
   color: #f87171;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
 }
 #p-order .pc-count {
@@ -233,7 +220,7 @@
   height: 18px;
   padding: 0 5px;
   border-radius: 999px;
-  background: var(--o-accent);
+  background: var(--accent);
   color: #fff;
   font-size: 10px;
   font-weight: 800;
@@ -242,7 +229,7 @@
 #p-order .no-results {
   grid-column: 1 / -1;
   padding: 35px 12px;
-  color: var(--o-muted);
+  color: var(--muted);
   text-align: center;
 }
 
@@ -256,7 +243,7 @@
   align-items: center;
   gap: 10px;
   padding: 12px;
-  border-bottom: 1px solid var(--o-border);
+  border-bottom: 1px solid var(--border);
 }
 #p-order .cart-av {
   display: grid;
@@ -264,9 +251,9 @@
   flex: 0 0 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--o-accent-dim);
-  color: var(--o-accent);
-  font-size: 10px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 12px;
   font-weight: 800;
 }
 #p-order .cart-info { flex: 1; min-width: 0; }
@@ -280,18 +267,18 @@
 #p-order .cart-cmeta {
   margin-top: 2px;
   overflow: hidden;
-  color: var(--o-muted);
-  font-size: 11px;
+  color: var(--muted);
+  font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#p-order .cart-cmeta .st { color: var(--o-green); }
+#p-order .cart-cmeta .st { color: var(--green); }
 #p-order .floor-link {
   flex: none;
   padding: 4px;
   border: 0;
   background: transparent;
-  color: var(--o-accent);
+  color: var(--accent);
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -304,12 +291,13 @@
 #p-order .cart-body { flex: 1; min-height: 0; overflow-y: auto; }
 #p-order .sec {
   padding: 8px 12px;
-  background: var(--o-band);
-  color: var(--o-muted);
-  font-size: 10px;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  border-radius: 6px;
 }
 #p-order .cart-empty {
   display: flex;
@@ -318,12 +306,12 @@
   justify-content: center;
   gap: 6px;
   padding: 40px 20px;
-  color: var(--o-muted);
+  color: var(--muted);
   font-size: 13px;
   text-align: center;
 }
 #p-order .cart-empty .ic { font-size: 32px; }
-#p-order .cart-empty .sub { font-size: 11px; }
+#p-order .cart-empty .sub { font-size: 12px; }
 
 /* row:  name + badge / meta   |   qty + edit  /  price + ✕  */
 #p-order .cart-item {
@@ -331,7 +319,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   column-gap: 10px;
   padding: 9px 12px;
-  border-bottom: 1px solid var(--o-border);
+  border-bottom: 1px solid var(--border);
 }
 #p-order .ci-name {
   display: flex;
@@ -342,16 +330,16 @@
   font-weight: 700;
 }
 #p-order .badge {
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 6px 8px;
+  border-radius: 999px;
   background: rgba(34, 197, 94, 0.14);
-  color: var(--o-green);
-  font-size: 9px;
+  color: var(--green);
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
 }
-#p-order .badge.pre { background: rgba(245, 158, 11, 0.14); color: var(--o-amber); }
-#p-order .ci-sub { margin-top: 3px; color: var(--o-muted); font-size: 10px; line-height: 1.4; }
+#p-order .badge.pre { background: rgba(245, 158, 11, 0.14); color: var(--a2); }
+#p-order .ci-sub { margin-top: 3px; color: var(--muted); font-size: 10px; line-height: 1.4; }
 
 #p-order .ci-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
 #p-order .ci-r {
@@ -363,7 +351,7 @@
 }
 #p-order .ci-qty { min-width: 12px; text-align: right; font-size: 12px; font-weight: 700; }
 #p-order .ci-price {
-  color: var(--o-accent);
+  color: var(--accent);
   font-size: 13px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
@@ -376,10 +364,10 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--o-muted);
+  color: var(--muted);
   cursor: pointer;
 }
-#p-order .ico:hover { color: var(--o-text); }
+#p-order .ico:hover { color: var(--text); }
 #p-order .ico svg {
   width: 12px;
   height: 12px;
@@ -396,10 +384,10 @@
   width: 20px;
   height: 20px;
   padding: 0;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 5px;
   background: transparent;
-  color: var(--o-text);
+  color: var(--text);
   line-height: 1;
   cursor: pointer;
 }
@@ -410,25 +398,25 @@
   width: 56px;
   height: 26px;
   padding: 0 6px;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: var(--o-panel);
-  color: var(--o-text);
+  background: var(--panel);
+  color: var(--text);
   font-size: 12px;
 }
 #p-order .sent-edit button {
   height: 26px;
   padding: 0 10px;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 6px;
   background: transparent;
-  color: var(--o-text);
-  font-size: 11px;
+  color: var(--text);
+  font-size: 12px;
   cursor: pointer;
 }
 #p-order .sent-edit button:first-of-type {
-  border-color: var(--o-accent);
-  background: var(--o-accent);
+  border-color: var(--accent);
+  background: var(--accent);
   color: #fff;
 }
 
@@ -443,15 +431,15 @@
   justify-content: space-between;
   gap: 10px;
   padding: 5px 0;
-  color: var(--o-muted);
+  color: var(--muted);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
 #p-order .sr.grand {
   margin: 6px 0 10px;
   padding-top: 10px;
-  border-top: 1px solid var(--o-border);
-  color: var(--o-text);
+  border-top: 1px solid var(--border);
+  color: var(--text);
   font-size: 17px;
   font-weight: 800;
 }
@@ -464,15 +452,15 @@
   height: 38px;
   border: 0;
   border-radius: 8px;
-  background: var(--o-accent);
+  background: var(--accent);
   color: #fff;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
 }
 #p-order .charge-btn:disabled {
-  background: var(--o-accent-dim);
-  color: #4d6a85;
+  background: var(--accent-dim);
+  color:var(--accent);
   cursor: not-allowed;
 }
 #p-order .bill-sum .btn { width: 100%; margin-top: 6px; border-radius: 8px; }
@@ -480,8 +468,8 @@
   margin-top: 8px;
   padding: 7px 9px;
   border-radius: 6px;
-  background: var(--o-accent-dim);
-  font-size: 11px;
+  background: var(--accent-dim);
+  font-size: 12px;
   line-height: 1.4;
 }
 
@@ -511,17 +499,17 @@
   min-width: 0;
   height: 30px;
   padding: 0 4px;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--o-panel);
-  color: var(--o-text);
-  font-size: 11px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12px;
   white-space: nowrap;
   cursor: pointer;
   transition: 0.2s;
 }
 #p-order .cqa:hover,
-#p-order .cqa.on { border-color: var(--o-accent); color: var(--o-accent); }
+#p-order .cqa.on { border-color: var(--accent); color: var(--accent); }
 #p-order .bi {
   width: 12px;
   height: 12px;
@@ -544,6 +532,7 @@
   place-items: center;
   padding: 16px;
   background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(3px);
 }
 #p-order .order-modal {
   display: flex;
@@ -551,9 +540,9 @@
   width: min(420px, 100%);
   max-height: min(90vh, 640px);
   overflow: hidden;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: var(--o-panel);
+  background: var(--panel);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
 }
 #p-order .order-modal-header {
@@ -563,7 +552,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 12px 16px;
-  border-bottom: 1px solid var(--o-border);
+  border-bottom: 1px solid var(--border);
 }
 #p-order .order-modal-header h3 { margin: 0; font-size: 15px; font-weight: 800; }
 #p-order .order-modal-close {
@@ -575,11 +564,11 @@
   border: 0;
   border-radius: 6px;
   background: transparent;
-  color: var(--o-muted);
+  color: var(--muted);
   font-size: 14px;
   cursor: pointer;
 }
-#p-order .order-modal-close:hover { background: var(--o-band); color: var(--o-text); }
+#p-order .order-modal-close:hover { background: var(--card); color: var(--text); }
 #p-order .order-modal-body {
   flex: 1;
   min-height: 0;
@@ -594,7 +583,7 @@
   justify-content: flex-end;
   gap: 8px;
   padding: 12px 16px;
-  border-top: 1px solid var(--o-border);
+  border-top: 1px solid var(--border);
 }
 #p-order .order-modal-footer .btn { height: 34px; }
 
@@ -607,12 +596,12 @@
   font-size: 11px;
   font-weight: 600;
 }
-#p-order .t-grey { background: var(--o-band); color: var(--o-muted); }
+#p-order .t-grey { background: var(--panel); color: var(--muted); }
 #p-order .fl {
   display: block;
   margin: 14px 0 6px;
-  color: var(--o-muted);
-  font-size: 11px;
+  color: var(--muted);
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
@@ -623,10 +612,10 @@
   width: 30px;
   height: 30px;
   padding: 0;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 8px;
   background: transparent;
-  color: var(--o-text);
+  color: var(--text);
   font-size: 16px;
   line-height: 1;
   cursor: pointer;
@@ -635,44 +624,44 @@
 #p-order .chip {
   height: 30px;
   padding: 0 12px;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: var(--o-band);
-  color: var(--o-muted);
+  background: var(--surface);
+  color: var(--muted);
   font-size: 12px;
   cursor: pointer;
 }
-#p-order .chip:hover { color: var(--o-text); }
+#p-order .chip:hover { color: var(--text); }
 #p-order .chip.sel {
-  border-color: var(--o-accent);
-  background: var(--o-accent-dim);
-  color: var(--o-accent);
+  border-color: var(--accent);
+  background: var(--accent-dim);
+  color: var(--accent);
   font-weight: 700;
 }
 #p-order .inp {
   display: block;
   width: 100%;
   padding: 9px 12px;
-  border: 1px solid var(--o-border);
+  border: 1px solid var(--border);
   border-radius: 8px;
   outline: none;
-  background: var(--o-card);
-  color: var(--o-text);
+  background: var(--card);
+  color: var(--text);
   font: inherit;
   font-size: 13px;
   resize: vertical;
 }
-#p-order .inp:focus { border-color: var(--o-accent); }
+#p-order .inp:focus { border-color: var(--accent); }
 #p-order .chk {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 14px;
-  color: var(--o-text);
+  color: var(--text);
   font-size: 12px;
   cursor: pointer;
 }
-#p-order .chk input { width: 15px; height: 15px; accent-color: var(--o-accent); }
+#p-order .chk input { width: 15px; height: 15px; accent-color: var(--accent); }
 
 /* =====================================================
    RESPONSIVE
@@ -695,18 +684,18 @@
    ADDITIONS for the full order logic
 ===================================================== */
 
-#p-order .cqa.prio { border-color: var(--o-red); color: var(--o-red); }
-#p-order .badge.grey { background: var(--o-band); color: var(--o-muted); }
-#p-order .badge.void { background: rgba(239, 68, 68, 0.14); color: var(--o-red); }
+#p-order .cqa.prio { border-color: var(--red); color: var(--red); }
+#p-order .badge.grey { background: var(--card); color: var(--muted); }
+#p-order .badge.void { background: rgba(239, 68, 68, 0.14); color: var(--red); }
 #p-order .cart-item.void .ci-name,
 #p-order .cart-item.void .ci-price { text-decoration: line-through; opacity: 0.55; }
 #p-order .cart-item.void .ci-sub,
 #p-order .cart-item.void .ci-qty { opacity: 0.55; }
 #p-order .ico { width: 18px; font-size: 10px; }          /* ⏸ ▶ glyph buttons */
-#p-order .muted { color: var(--o-muted); font-size: 12px; }
+#p-order .muted { color: var(--muted); font-size: 12px; }
 #p-order .mono { font-variant-numeric: tabular-nums; }
 #p-order .right { margin-left: auto; }
-#p-order .chip .c { margin-left: 4px; color: var(--o-muted); font-size: 10px; }
+#p-order .chip .c { margin-left: 4px; color: var(--muted); font-size: 10px; }
 
 /* thermal KOT preview */
 #p-order .kot-prev { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px; }
@@ -721,7 +710,7 @@
 #p-order .thermal .c { text-align: center; }
 #p-order .thermal .b { font-weight: 700; }
 #p-order .thermal .big { font-size: 14px; font-weight: 700; }
-#p-order .thermal hr { margin: 6px 0; border: 0; border-top: 1px dashed #777; }
+#p-order .thermal hr { margin: 6px 0; border: 0; border-top: 1px dashed var(--border); }
 #p-order .thermal .li { display: flex; gap: 8px; }
 #p-order .thermal .li > span:last-child { flex: 1; }
 #p-order .thermal i { font-weight: 400; }
@@ -743,7 +732,7 @@
   gap: 12px;
   flex-wrap: wrap;
   padding-bottom: 14px;
-  border-bottom: 1px solid var(--o-border, #2b2d33);
+  border-bottom: 1px solid var(--border);
 }
 
 .item-modal-price {
@@ -812,7 +801,7 @@
   align-items: flex-start;
   gap: 10px;
   padding: 12px;
-  border: 1px solid var(--o-border, #2b2d33);
+  border: 1px solid var(--border);
   border-radius: 8px;
   box-sizing: border-box;
   width: 100%;
@@ -831,7 +820,7 @@
 }
 
 .item-modal-hold small {
-  color: var(--o-muted, #9ca3af);
+  color: var(--muted);
   line-height: 1.5;
 }
 

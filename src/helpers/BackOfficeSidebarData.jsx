@@ -33,11 +33,6 @@ export const BackOfficeSidebarData = [
         label: "Inventory",
       },
       {
-        path: "production",
-        icon: <ChefHat size={15} />,
-        label: "Production",
-      },
-      {
         path: "recon",
         icon: <Activity size={15} />,
         label: "Recon",
@@ -52,11 +47,7 @@ export const BackOfficeSidebarData = [
         icon: <Menu size={15} />,
         label: "Vouchers",
       },
-      {
-        path: "staff",
-        icon: <Users size={15} />,
-        label: "Staff & Pay",
-      },
+      
       {
         path: "p&l",
         icon: <Activity size={15} />,

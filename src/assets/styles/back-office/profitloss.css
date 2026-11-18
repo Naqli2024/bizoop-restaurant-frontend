@@ -1,0 +1,176 @@
+.pl-page {
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- header ---------- */
+.pl-head {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.pl-head__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.pl-head__tag {
+    padding: 6px 8px;
+    border-radius: 999px;
+    background:var(--accent-dim);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.pl-body {
+    padding: 14px 18px 24px;
+}
+
+/* ---------- stat tiles ---------- */
+.pl-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.pl-stat {
+    padding: 16px 16px 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.pl-stat__label {
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.pl-stat__value {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+/* ---------- colour tones ---------- */
+.pl-tone-gain {
+    color: var(--green);
+}
+
+.pl-tone-warn {
+    color: var(--orange);
+}
+
+.pl-tone-loss {
+    color: var(--red);
+}
+
+/* ---------- ledger + memo layout ---------- */
+.pl-split {
+    display: grid;
+    grid-template-columns: 2.1fr 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.pl-ledger {
+    overflow-x: auto;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.pl-ledger__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.pl-ledger__table th {
+    padding: 11px 14px;
+    background:var(--elevated);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 500;
+    text-align: left;
+    font-size: 14px;
+}
+
+.pl-ledger__table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+}
+
+.pl-ledger__table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.pl-cell--right {
+    text-align: right !important;
+}
+
+.pl-cell--strong {
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.pl-cell--dim {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.pl-cell--mono {
+    font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---------- memo card ---------- */
+.pl-memo {
+    padding: 16px 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    height: 100%;
+}
+
+.pl-memo__title {
+    margin: 0 0 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.pl-memo__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px) {
+    .pl-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pl-split {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .pl-stats {
+        grid-template-columns: 1fr;
+    }
+}

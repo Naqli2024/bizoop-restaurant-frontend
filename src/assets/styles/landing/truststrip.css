@@ -1,0 +1,33 @@
+.bz-trust-strip {
+    min-height: 68px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 15px 20px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.bz-trust-strip i {
+    width: 4px;
+    height: 4px;
+    background: var(--blue);
+    border-radius: 50%;
+}
+
+@media (max-width: 760px) {
+
+    .bz-trust-strip {
+        gap: 12px;
+        font-size: 8px;
+        letter-spacing: .7px;
+        flex-wrap: wrap;
+    }
+
+}
